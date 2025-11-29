@@ -1,214 +1,142 @@
-/**
- * NEURAL VAULT: SYSTEM CORE
- * Purpose: State management & Stripe Payment Integration
- */
+// --- 1. INITIALIZE SYSTEM ---
+console.log("%c SYSTEM ONLINE ", "background: #00f3ff; color: #000; font-weight: bold; padding: 5px;");
+lucide.createIcons();
 
-// --- 0. STRIPE CONFIGURATION ---
-// TODO: REPLACE THIS WITH YOUR STRIPE PUBLISHABLE KEY (Starts with pk_test_)
-const STRIPE_KEY = 'pk_live_51SOQhwGr5qRM7EIngTZjG8IDWBTeuULInJ8l9JlGV5OA6SjKaLlOPyw69fj4xQ0ehsl4WwxYdT9i1zdcFmVgII8k00Ienbrr1m'; 
-
-// Initialize Stripe
-let stripe;
-let elements;
-let card;
-
-try {
-  stripe = Stripe(STRIPE_KEY);
-} catch (e) {
-  console.warn("Stripe Key missing or invalid. Payments will simulate only.");
+// --- 2. THE NERVOUS SYSTEM (Scroll & Cursor) ---
+// Lenis: The spine of the site (smooth scroll)
+const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smooth: true
+});
+function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
 }
+requestAnimationFrame(raf);
 
-// --- 1. STATE & STORE ---
-const createStore = (initialState) => {
-  let state = new Proxy(initialState, {
-    set(target, prop, value) {
-      target[prop] = value;
-      return true;
-    }
-  });
-  return {
-    get: (key) => state[key],
-    set: (key, value) => { state[key] = value; },
-    getState: () => state
-  };
-};
+// Cursor Logic: The visual touch
+const cursorMain = document.querySelector('.cursor-main');
+const cursorFollower = document.querySelector('.cursor-follower');
 
-const store = createStore({
-  cart: [],
-  cartTotal: 0,
-  latency: 12,
-  inventory: [
-    { id: 'NV-001', name: 'NEURAL WEAVE', rarity: 'legendary', price: 149.00, desc: 'High-bandwidth spinal interface. Latency 0.00ms.' },
-    { id: 'NV-002', name: 'OPTIC SHIELD', rarity: 'epic', price: 89.00, desc: 'Anti-glare photonic barrier. Blocks 99% of blue radiation.' },
-    { id: 'NV-003', name: 'DATA FRAGMENT', rarity: 'rare', price: 29.00, desc: 'Encrypted lore packet from the pre-collapse era.' }
-  ]
+document.addEventListener('mousemove', (e) => {
+    // Direct link to nerves
+    gsap.to(cursorMain, { x: e.clientX - 4, y: e.clientY - 4, duration: 0 });
+    gsap.to(cursorFollower, { x: e.clientX - 20, y: e.clientY - 20, duration: 0.15 });
 });
 
-// --- 2. SIGNAL BUS (Perception) ---
-const bus = {
-  listeners: [],
-  subscribe(fn) { this.listeners.push(fn); },
-  emit(signal) { this.listeners.forEach(fn => fn(signal)); }
-};
+// Magnetic Elements
+document.querySelectorAll('a, button, .glass-panel').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+        gsap.to(cursorFollower, { scale: 2, borderColor: '#00f3ff', duration: 0.3 });
+    });
+    el.addEventListener('mouseleave', () => {
+        gsap.to(cursorFollower, { scale: 1, borderColor: 'rgba(255,255,255,0.2)', duration: 0.3 });
+    });
+});
 
-// --- 3. REASONING & EFFECTS (Action) ---
-const effects = {
-  'init': () => {
-    renderInventory();
-    startHeartbeat();
-    setupStripeElements();
-  },
+// --- 3. THE BRAIN (Three.js 3D Core) ---
+const canvas = document.querySelector('#neuro-core');
+const scene = new THREE.Scene();
 
-  'sys.tick': () => {
-    // Fluctuate latency visually
-    const variance = (Math.random() - 0.5) * 4;
-    const newLat = Math.max(1, 12 + variance).toFixed(1);
-    const el = document.getElementById('latency-display');
-    if(el) el.innerHTML = `${newLat}<span>ms</span>`;
-  },
+// Camera (The Eye)
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.z = 5;
 
-  'shop.add': (id) => {
-    const product = store.get('inventory').find(p => p.id === id);
-    if(product) {
-      const newCart = [...store.get('cart'), product];
-      store.set('cart', newCart);
-      updateCartUI();
-    }
-  },
+// Renderer (The Visualizer)
+const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-  'shop.checkout': () => {
-    if(store.get('cart').length === 0) return;
-    
-    const modal = document.getElementById('checkout-modal');
-    const totalEl = document.getElementById('checkout-total-display');
-    
-    totalEl.innerText = `$${store.get('cartTotal').toFixed(2)}`;
-    modal.style.display = 'grid'; // Show modal
-  },
+// Geometry: The Neural Shape (Icosahedron)
+const geometry = new THREE.IcosahedronGeometry(2, 1); // Size, Detail
+const material = new THREE.MeshBasicMaterial({ 
+    color: 0x00f3ff, 
+    wireframe: true,
+    transparent: true,
+    opacity: 0.3
+});
+const core = new THREE.Mesh(geometry, material);
+scene.add(core);
 
-  'shop.cancel': () => {
-    document.getElementById('checkout-modal').style.display = 'none';
-  },
+// Inner Core (The Soul)
+const innerGeo = new THREE.IcosahedronGeometry(1, 0);
+const innerMat = new THREE.MeshBasicMaterial({ color: 0xbc13fe, wireframe: true });
+const innerCore = new THREE.Mesh(innerGeo, innerMat);
+scene.add(innerCore);
 
-  'shop.pay': async () => {
-    const btn = document.getElementById('pay-btn');
-    const errorDisplay = document.getElementById('card-errors');
-    
-    btn.innerText = "ENCRYPTING...";
-    btn.disabled = true;
+// Particle Field (The Data)
+const particlesGeo = new THREE.BufferGeometry();
+const particlesCount = 700;
+const posArray = new Float32Array(particlesCount * 3);
 
-    // SIMULATION MODE (If no key provided) or REAL MODE
-    if (!stripe) {
-      setTimeout(() => completePayment(true), 2000);
-      return;
-    }
-
-    // REAL STRIPE TOKENIZATION
-    const result = await stripe.createToken(card);
-
-    if (result.error) {
-      // Show error
-      errorDisplay.textContent = result.error.message;
-      btn.innerText = "AUTHORIZE PAYMENT";
-      btn.disabled = false;
-    } else {
-      // Send the token to your server (Simulated here)
-      console.log('Stripe Token Created:', result.token);
-      completePayment(true);
-    }
-  }
-};
-
-// --- 4. HELPERS ---
-function updateCartUI() {
-  const cart = store.get('cart');
-  const total = cart.reduce((sum, item) => sum + item.price, 0);
-  store.set('cartTotal', total);
-  
-  const btn = document.getElementById('cart-trigger');
-  btn.innerHTML = `CART [${cart.length}] • $${total.toFixed(2)}`;
-  btn.classList.add('jewelry-accent');
-  setTimeout(() => btn.classList.remove('jewelry-accent'), 300);
+for(let i = 0; i < particlesCount * 3; i++) {
+    // Spread particles across the screen
+    posArray[i] = (Math.random() - 0.5) * 15;
 }
+particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+const particlesMat = new THREE.PointsMaterial({
+    size: 0.02,
+    color: 0xffffff,
+    transparent: true,
+    opacity: 0.5
+});
+const particlesMesh = new THREE.Points(particlesGeo, particlesMat);
+scene.add(particlesMesh);
 
-function renderInventory() {
-  const container = document.getElementById('vault-shelves');
-  const items = store.get('inventory');
-  
-  container.innerHTML = items.map(item => `
-    <article class="product-card scent-hover tailored-container">
-      <div class="product-visual ${item.rarity}">
-        <div class="product-orb"></div>
-      </div>
-      <div class="product-info">
-        <header>
-          <h3 class="product-title">${item.name}</h3>
-        </header>
-        <p class="product-desc">${item.desc}</p>
-        <footer class="product-footer">
-          <span class="product-price">$${item.price.toFixed(2)}</span>
-          <button class="btn-titanium btn-sm" onclick="bus.emit({type: 'shop.add', payload: '${item.id}'})">
-            ADD TO CART
-          </button>
-        </footer>
-      </div>
-    </article>
-  `).join('');
+// --- 4. ORCHESTRATION (Animation Loop) ---
+const clock = new THREE.Clock();
+
+function animate() {
+    const elapsedTime = clock.getElapsedTime();
+
+    // Rotate the Core
+    core.rotation.y = elapsedTime * 0.1;
+    core.rotation.x = elapsedTime * 0.05;
+    
+    // Rotate Inner Core Faster
+    innerCore.rotation.y = elapsedTime * -0.2;
+    innerCore.rotation.x = elapsedTime * -0.1;
+
+    // Pulse the Core (Breathing)
+    const scale = 1 + Math.sin(elapsedTime) * 0.05;
+    core.scale.set(scale, scale, scale);
+
+    // Float Particles
+    particlesMesh.rotation.y = elapsedTime * 0.05;
+
+    renderer.render(scene, camera);
+    requestAnimationFrame(animate);
 }
+animate();
 
-function startHeartbeat() {
-  setInterval(() => bus.emit({type: 'sys.tick'}), 1000);
-}
+// Handle Window Resize (Responsiveness)
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
 
-function setupStripeElements() {
-  if(!stripe) return;
-  elements = stripe.elements();
-  
-  // Custom styling for the Stripe Input to match our Theme
-  const style = {
-    base: {
-      color: "#f0f0f0",
-      fontFamily: '"Inter", sans-serif',
-      fontSmoothing: "antialiased",
-      fontSize: "16px",
-      "::placeholder": { color: "#aab7c4" }
+// --- 5. ANIMATION TRIGGERS (GSAP) ---
+gsap.registerPlugin(ScrollTrigger);
+
+// Hero Text Reveal
+gsap.from(".line-1", {
+    y: 100, opacity: 0, duration: 1.5, ease: "power4.out", delay: 0.2
+});
+gsap.from(".line-2", {
+    y: 100, opacity: 0, duration: 1.5, ease: "power4.out", delay: 0.4
+});
+
+// Bento Grid Stagger
+gsap.from(".cell", {
+    scrollTrigger: {
+        trigger: ".bento-grid",
+        start: "top 80%",
     },
-    invalid: { color: "#ff2a2a", iconColor: "#ff2a2a" }
-  };
-
-  card = elements.create("card", { style: style });
-  card.mount("#card-element");
-}
-
-function completePayment(success) {
-  const modal = document.getElementById('checkout-modal');
-  const btn = document.getElementById('pay-btn');
-  
-  if(success) {
-    btn.innerText = "SUCCESS // ASSETS TRANSFERRED";
-    btn.style.borderColor = "#00ff66";
-    btn.style.color = "#00ff66";
-    
-    setTimeout(() => {
-      store.set('cart', []);
-      updateCartUI();
-      modal.style.display = 'none';
-      btn.innerText = "AUTHORIZE PAYMENT"; // Reset
-      btn.style.borderColor = "var(--color-accent)";
-      btn.style.color = "var(--color-accent)";
-      btn.disabled = false;
-      if(card) card.clear();
-    }, 2000);
-  }
-}
-
-// --- 5. INITIALIZATION ---
-bus.subscribe(signal => {
-  if (effects[signal.type]) effects[signal.type](signal.payload);
+    y: 50,
+    opacity: 0,
+    duration: 1,
+    stagger: 0.2,
+    ease: "power3.out"
 });
-
-// Click Handler for Payment
-document.getElementById('pay-btn').addEventListener('click', () => bus.emit({type: 'shop.pay'}));
-
-// Boot
-bus.emit({type: 'init'});
