@@ -1,89 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
-    <title>NEURAL VAULT | THE ARCHITECT</title>
-    <meta name="description" content="A digital legacy architecture. The impossible is just a variable.">
-    <meta name="theme-color" content="#030304">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEURAL VAULT | Official Interface</title>
+  <meta name="description" content="High-security neural interface and commerce vault.">
+  
+  <script src="https://js.stripe.com/v3/"></script>
+  
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <canvas id="neural-canvas" aria-hidden="true"></canvas>
+  <header class="titanium-header">
+    <div class="header-inner">
+      <a href="/" class="brand-logo scent-hover">NEURAL_VAULT</a>
+      
+      <nav>
+        <ul>
+          <li><a href="#dashboard" class="scent-hover">Dashboard</a></li>
+          <li><a href="#vault" class="scent-hover" style="color: var(--color-accent);">The Vault</a></li>
+        </ul>
+      </nav>
 
-    <div class="warp-flash" aria-hidden="true"></div>
+      <button id="cart-trigger" class="btn-titanium" onclick="bus.emit({type: 'shop.checkout'})">
+        CART [0]
+      </button>
+    </div>
+  </header>
 
-    <header>
-        <nav class="glass-nav">
-            <div class="brand">NEURAL VAULT <span class="dot">●</span></div>
-        </nav>
-    </header>
+  <main class="stable-grid">
+    
+    <section class="garment-wrapper full-width">
+      <h1 class="text-gradient-gold">System Overview</h1>
+      <p class="label">
+        <span class="status-dot aura-pulse"></span> Live Connection • Secure
+      </p>
+    </section>
 
-    <main>
-        
-        <section class="hero">
-            
-            <div class="status-pill">
-                <div class="pulse"></div>
-                SYSTEM: TRANSCENDENT
-            </div>
+    <article class="metric-card jewelry-accent">
+      <header><h2 class="label">Processing Power</h2></header>
+      <div class="metric-value">98.4<span>%</span></div>
+      <progress value="98" max="100"></progress>
+    </article>
 
-            <h1>
-                THE IMPOSSIBLE<br>
-                IS JUST A VARIABLE.
-            </h1>
+    <article class="metric-card scent-hover">
+      <header><h2 class="label">Encryption</h2></header>
+      <div class="metric-value">AES-256</div>
+    </article>
 
-            <p class="subtext typewriter" aria-live="polite"></p>
+    <article class="metric-card scent-hover">
+      <header><h2 class="label">Latency</h2></header>
+      <div class="metric-value" id="latency-display">12<span>ms</span></div>
+    </article>
 
-            <a href="#grid" class="btn-main" role="button">INITIALIZE SEQUENCE</a>
-        </section>
+    <section class="garment-wrapper full-width" id="vault" style="margin-top: 4rem;">
+      <header class="section-header">
+        <div>
+          <h2 class="text-gradient-gold">Acquisitions</h2>
+          <p class="label">Restricted Access • Clearance Level 5</p>
+        </div>
+        <div class="label accent-text">Authorized</div>
+      </header>
+      
+      <div id="vault-shelves" class="vault-grid"></div>
+    </section>
 
-        <section id="grid" class="grid-section">
-            
-            <h2 class="section-title">THE <span class="highlight">PARADIGM SHIFT</span></h2>
+  </main>
 
-            <div class="artifact-grid">
-                
-                <article class="card">
-                    <div class="card-index">01</div>
-                    <h3>The Unseen</h3>
-                    <p>We spent years staring at walls, realizing too late they were doors. We architect new realities.</p>
-                    <button class="btn-sm">Expand View</button>
-                </article>
+  <footer class="foundation-anchor">
+    <p>&copy; 2025 Neural Vault Official. System Integrity 100%.</p>
+  </footer>
 
-                <article class="card">
-                    <div class="card-index">02</div>
-                    <h3>The Velocity</h3>
-                    <p>Speed is a feature. We strip away the noise to focus purely on signal. Every pixel justifies its existence.</p>
-                    <button class="btn-sm">Optimize</button>
-                </article>
+  <div id="checkout-modal" class="modal-overlay">
+    <div class="checkout-terminal">
+      <div class="scan-line"></div>
+      <div class="secure-badge">
+        <span class="status-dot"></span> STRIPE SECURE GATEWAY
+      </div>
+      
+      <h2 class="label">Total Transaction Value</h2>
+      <div id="checkout-total-display" class="checkout-total">$0.00</div>
+      
+      <div id="card-element" class="stripe-input-field">
+        </div>
+      <div id="card-errors" role="alert" style="color: var(--color-danger); margin-top: 1rem; font-size: 0.8rem;"></div>
 
-                <article class="card">
-                    <div class="card-index">03</div>
-                    <h3>The Standard</h3>
-                    <p>Average is a failing grade. We build systems that defy expectation, pushing the render limit.</p>
-                    <button class="btn-sm">Benchmark</button>
-                </article>
+      <button id="pay-btn" class="btn-titanium full-width" style="margin-top: 1.5rem;">
+        AUTHORIZE PAYMENT
+      </button>
+      
+      <button class="btn-text" onclick="bus.emit({type: 'shop.cancel'})" style="margin-top: 1rem;">
+        ABORT SEQUENCE
+      </button>
+    </div>
+  </div>
 
-                <article class="card">
-                    <div class="card-index">04</div>
-                    <h3>The Legacy</h3>
-                    <p>We do not code for today. We architect for the future we can finally see clearly.</p>
-                    <button class="btn-sm">Solidify</button>
-                </article>
-
-            </div>
-        </section>
-    </main>
-
-    <script src="script.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
