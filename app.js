@@ -1,9 +1,8 @@
-// --- 1. INITIALIZE SYSTEM ---
+// --- 1. INITIALIZATION ---
 console.log("%c SYSTEM ONLINE ", "background: #00f3ff; color: #000; font-weight: bold; padding: 5px;");
 lucide.createIcons();
 
-// --- 2. THE NERVOUS SYSTEM (Scroll & Cursor) ---
-// Lenis: The spine of the site (smooth scroll)
+// --- 2. SMOOTH SCROLL (Lenis) ---
 const lenis = new Lenis({
     duration: 1.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -15,12 +14,11 @@ function raf(time) {
 }
 requestAnimationFrame(raf);
 
-// Cursor Logic: The visual touch
+// --- 3. CURSOR PHYSICS ---
 const cursorMain = document.querySelector('.cursor-main');
 const cursorFollower = document.querySelector('.cursor-follower');
 
 document.addEventListener('mousemove', (e) => {
-    // Direct link to nerves
     gsap.to(cursorMain, { x: e.clientX - 4, y: e.clientY - 4, duration: 0 });
     gsap.to(cursorFollower, { x: e.clientX - 20, y: e.clientY - 20, duration: 0.15 });
 });
@@ -35,108 +33,104 @@ document.querySelectorAll('a, button, .glass-panel').forEach(el => {
     });
 });
 
-// --- 3. THE BRAIN (Three.js 3D Core) ---
+// --- 4. 3D CORE ENGINE (Three.js) ---
 const canvas = document.querySelector('#neuro-core');
-const scene = new THREE.Scene();
+if(canvas) {
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 5;
 
-// Camera (The Eye)
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 5;
-
-// Renderer (The Visualizer)
-const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-// Geometry: The Neural Shape (Icosahedron)
-const geometry = new THREE.IcosahedronGeometry(2, 1); // Size, Detail
-const material = new THREE.MeshBasicMaterial({ 
-    color: 0x00f3ff, 
-    wireframe: true,
-    transparent: true,
-    opacity: 0.3
-});
-const core = new THREE.Mesh(geometry, material);
-scene.add(core);
-
-// Inner Core (The Soul)
-const innerGeo = new THREE.IcosahedronGeometry(1, 0);
-const innerMat = new THREE.MeshBasicMaterial({ color: 0xbc13fe, wireframe: true });
-const innerCore = new THREE.Mesh(innerGeo, innerMat);
-scene.add(innerCore);
-
-// Particle Field (The Data)
-const particlesGeo = new THREE.BufferGeometry();
-const particlesCount = 700;
-const posArray = new Float32Array(particlesCount * 3);
-
-for(let i = 0; i < particlesCount * 3; i++) {
-    // Spread particles across the screen
-    posArray[i] = (Math.random() - 0.5) * 15;
-}
-particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-const particlesMat = new THREE.PointsMaterial({
-    size: 0.02,
-    color: 0xffffff,
-    transparent: true,
-    opacity: 0.5
-});
-const particlesMesh = new THREE.Points(particlesGeo, particlesMat);
-scene.add(particlesMesh);
-
-// --- 4. ORCHESTRATION (Animation Loop) ---
-const clock = new THREE.Clock();
-
-function animate() {
-    const elapsedTime = clock.getElapsedTime();
-
-    // Rotate the Core
-    core.rotation.y = elapsedTime * 0.1;
-    core.rotation.x = elapsedTime * 0.05;
-    
-    // Rotate Inner Core Faster
-    innerCore.rotation.y = elapsedTime * -0.2;
-    innerCore.rotation.x = elapsedTime * -0.1;
-
-    // Pulse the Core (Breathing)
-    const scale = 1 + Math.sin(elapsedTime) * 0.05;
-    core.scale.set(scale, scale, scale);
-
-    // Float Particles
-    particlesMesh.rotation.y = elapsedTime * 0.05;
-
-    renderer.render(scene, camera);
-    requestAnimationFrame(animate);
-}
-animate();
-
-// Handle Window Resize (Responsiveness)
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
-});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-// --- 5. ANIMATION TRIGGERS (GSAP) ---
+    // The Geometric Brain
+    const geometry = new THREE.IcosahedronGeometry(2, 1);
+    const material = new THREE.MeshBasicMaterial({ color: 0x00f3ff, wireframe: true, transparent: true, opacity: 0.3 });
+    const core = new THREE.Mesh(geometry, material);
+    scene.add(core);
+
+    const innerGeo = new THREE.IcosahedronGeometry(1, 0);
+    const innerMat = new THREE.MeshBasicMaterial({ color: 0x7000ff, wireframe: true });
+    const innerCore = new THREE.Mesh(innerGeo, innerMat);
+    scene.add(innerCore);
+
+    function animate() {
+        requestAnimationFrame(animate);
+        core.rotation.y += 0.002;
+        core.rotation.x += 0.001;
+        innerCore.rotation.y -= 0.004;
+        renderer.render(scene, camera);
+    }
+    animate();
+    
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+}
+
+// --- 5. FORMSPREE INTELLIGENCE ---
+const form = document.getElementById("neural-form");
+
+async function handleSubmit(event) {
+    event.preventDefault(); // Stop page reload
+    
+    const status = document.getElementById("status-text");
+    const btn = form.querySelector("button");
+    const data = new FormData(event.target);
+    
+    // Loading State
+    const originalText = btn.innerText;
+    btn.innerText = "ENCRYPTING...";
+    btn.style.opacity = "0.7";
+    
+    try {
+        const response = await fetch(event.target.action, {
+            method: form.method,
+            body: data,
+            headers: { 'Accept': 'application/json' }
+        });
+        
+        if (response.ok) {
+            status.innerHTML = ">> TRANSMISSION SUCCESSFUL. AGENT ALERTED.";
+            status.style.color = "#00f3ff";
+            form.reset();
+            btn.innerText = "SENT";
+            gsap.to(form, { borderColor: "#00f3ff", duration: 0.5 });
+        } else {
+            const data = await response.json();
+            if (Object.hasOwn(data, 'errors')) {
+                status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+            } else {
+                status.innerHTML = ">> ERR: NETWORK_FAILURE";
+            }
+            status.style.color = "red";
+            btn.innerText = "RETRY";
+        }
+    } catch (error) {
+        status.innerHTML = ">> ERR: SYSTEM_OFFLINE";
+        status.style.color = "red";
+        btn.innerText = "RETRY";
+    }
+}
+
+if(form) {
+    form.addEventListener("submit", handleSubmit);
+}
+
+// --- 6. ANIMATION TRIGGERS ---
 gsap.registerPlugin(ScrollTrigger);
 
-// Hero Text Reveal
-gsap.from(".line-1", {
-    y: 100, opacity: 0, duration: 1.5, ease: "power4.out", delay: 0.2
-});
-gsap.from(".line-2", {
-    y: 100, opacity: 0, duration: 1.5, ease: "power4.out", delay: 0.4
-});
-
-// Bento Grid Stagger
 gsap.from(".cell", {
     scrollTrigger: {
         trigger: ".bento-grid",
-        start: "top 80%",
+        start: "top 85%",
     },
     y: 50,
     opacity: 0,
     duration: 1,
-    stagger: 0.2,
+    stagger: 0.1,
     ease: "power3.out"
 });
