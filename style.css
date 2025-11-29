@@ -179,3 +179,33 @@ h1 {
     color: #000;
     border-color: var(--accent);
 }
+
+
+/* --- HOLOGRAPHIC BUTTON OVERRIDE --- */
+.cta-button {
+    background: rgba(0, 255, 242, 0.05) !important;
+    border: 1px solid var(--neon-cyan) !important;
+    color: var(--neon-cyan) !important;
+    box-shadow: 0 0 10px rgba(0, 255, 242, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+.cta-button:hover {
+    background: var(--neon-cyan) !important;
+    color: #000 !important;
+    box-shadow: 0 0 30px rgba(0, 255, 242, 0.6);
+    transform: translateY(-2px);
+}
+
+
+/* ANIMATION FOR THE SYSTEM STATUS DOT */
+@keyframes pulse {
+    0% { opacity: 1; box-shadow: 0 0 0 0 rgba(0, 255, 242, 0.7); }
+    70% { opacity: 1; box-shadow: 0 0 0 10px rgba(0, 255, 242, 0); }
+    100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0, 255, 242, 0); }
+}
+
+.status-indicator::before {
+    /* This targets the little dot */
+    animation: pulse 2s infinite;
+}
