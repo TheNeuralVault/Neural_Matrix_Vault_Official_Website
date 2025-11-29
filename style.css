@@ -350,3 +350,33 @@
     100% { top: 100%; opacity: 0; }
   }
 }
+
+/* --- Protocol 002: Mobile Optimization --- */
+
+/* This targets devices with screens 768px wide or smaller */
+@media screen and (max-width: 768px) {
+    
+    /* Make the main container take up most of the screen */
+    body {
+        padding: 20px; /* Add breathing room around edges */
+    }
+
+    .container {
+        width: 100%; /* Use full width available */
+        max-width: none; /* Remove desktop limits */
+        padding: 15px;
+    }
+
+    /* Stack inputs and buttons vertically if they aren't already */
+    input, button {
+        width: 100%; /* Full width for easy tapping */
+        margin-bottom: 10px;
+        font-size: 18px; /* Larger text prevents zooming on tap (iOS specific) */
+    }
+
+    /* Enlarge Touch Targets */
+    button {
+        padding: 15px; /* Big area for thumbs */
+        min-height: 44px; /* Apple's recommended minimum touch size */
+    }
+}
