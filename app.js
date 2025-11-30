@@ -43,29 +43,24 @@ function drawMatrix() {
 }
 drawMatrix();
 
-// --- 4. 3D WEBGL GLOBE (The World Wide Web) ---
+// --- 4. 3D WEBGL GLOBE ---
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('webgl-scene'), alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 
-// Create Particles
 const geometry = new THREE.BufferGeometry();
 const count = 2000;
 const posArray = new Float32Array(count * 3);
-
 for(let i = 0; i < count * 3; i++) {
-    posArray[i] = (Math.random() - 0.5) * 10; // Spread logic
+    posArray[i] = (Math.random() - 0.5) * 10;
 }
-
 geometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
 const material = new THREE.PointsMaterial({ size: 0.02, color: 0xbc13fe });
 const particleMesh = new THREE.Points(geometry, material);
 scene.add(particleMesh);
-
 camera.position.z = 3;
 
-// Mouse Interaction
 let mouseX = 0;
 let mouseY = 0;
 document.addEventListener('mousemove', (event) => {
@@ -75,53 +70,13 @@ document.addEventListener('mousemove', (event) => {
 
 function animate3D() {
     requestAnimationFrame(animate3D);
-    // Rotate entire world slowly
-    particleMesh.rotation.y += 0.001;
-    particleMesh.rotation.x += 0.001;
-    
-    // React to mouse
-    particleMesh.rotation.y += mouseX * 0.05;
-    particleMesh.rotation.x += mouseY * 0.05;
-
+    particleMesh.rotation.y += 0.001 + (mouseX * 0.05);
+    particleMesh.rotation.x += 0.001 + (mouseY * 0.05);
     renderer.render(scene, camera);
 }
 animate3D();
 
-// --- 5. FORM TRANSMISSION (FORCE FETCH) ---
-const form = document.getElementById("neural-form");
-if(form) {
-    form.addEventListener("submit", async function(e) {
-        e.preventDefault();
-        const status = document.getElementById("status-text");
-        const btn = form.querySelector("button");
-        const data = new FormData(form);
-
-        btn.innerText = "ENCRYPTING...";
-        btn.style.opacity = "0.7";
-
-        try {
-            const response = await fetch("https://formspree.io/f/6fa1484b136e4f7ca467de59d87f0595", {
-                method: "POST",
-                body: data,
-                headers: { 'Accept': 'application/json' }
-            });
-            
-            if (response.ok) {
-                status.innerHTML = ">> TRANSMISSION SUCCESSFUL.";
-                status.style.color = "#00f3ff";
-                form.reset();
-                btn.innerText = "SENT";
-            } else {
-                status.innerHTML = ">> ERR: SERVER BLOCKED.";
-                status.style.color = "red";
-            }
-        } catch (err) {
-            status.innerHTML = ">> ERR: NETWORK FAILURE.";
-        }
-    });
-}
-
-// --- 6. ANIMATION TRIGGERS ---
+// --- 5. ANIMATION TRIGGERS ---
 gsap.registerPlugin(ScrollTrigger);
 gsap.from(".cell", {
     scrollTrigger: { trigger: ".bento-grid", start: "top 80%" },
