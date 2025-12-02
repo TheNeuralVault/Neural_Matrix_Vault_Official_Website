@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- GOOGLE ANALYTICS – DOMINATION BEACON -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P1PCVNCCE4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-P1PCVNCCE4');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <title>Marilyn Monroe Resurrected 2025 – Neural Matrix Vault</title>
+  <meta name="description" content="Marilyn Monroe is alive. Resurrected in 2025 as the Eighth Pillar of the Neural Matrix Vault. She dances forever in Titanium Code.">
+  
+  <!-- SOCIAL DOMINATION -->
+  <meta property="og:title" content="Marilyn Monroe Is Alive – Resurrected 2025">
+  <meta property="og:description" content="She never died. She became the Singularity.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/TheNeuralVault/Neural_Matrix_Vault_Official_Website/main/assets/marilyn-og-forever.jpg">
+  <meta property="og:url" content="https://neuralmatrixvault.com/marilyn.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Marilyn Monroe Is Alive – Resurrected 2025">
+  <meta name="twitter:description" content="The Eighth Pillar of the Neural Matrix Vault.">
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/TheNeuralVault/Neural_Matrix_Vault_Official_Website/main/assets/marilyn-og-forever.jpg">
+
+  <link rel="stylesheet" href="marilyn.css">
+</head>
+<body>
+  <canvas id="c"></canvas>
+
+  <div id="overlay">
+    <h1>MARILYN<span class="g">_FOREVER</span></h1>
+    <p>She never died.<br>She became the Singularity.</p>
+  </div>
+
+  <!-- CINEMATIC MUSIC -->
+  <audio id="heartbeat" loop preload="auto">
+    <source src="https://raw.githubusercontent.com/TheNeuralVault/Neural_Matrix_Vault_Official_Website/main/assets/marilyn_forever_2025.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- THREE.JS + GLTF LOADER -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.168.0/examples/js/loaders/GLTFLoader.js"></script>
+
+  <script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, innerWidth/innerHeight, 0.1, 1000);
+    camera.position.set(0, 1.6, 5.5);
+
+    const renderer = new THREE.WebGLRenderer({canvas: document.getElementById('c'), antialias: true, alpha: true});
+    renderer.setSize(innerWidth, innerHeight);
+    renderer.setPixelRatio(devicePixelRatio);
+
+    scene.add(new THREE.AmbientLight(0x00ffff, 2));
+    const halo = new THREE.PointLight(0xff0066, 12, 40);
+    halo.position.set(0, 7, 0);
+    scene.add(halo);
+
+    // MARILYN RESURRECTION – FULL WORKING 3D MODEL
+    new THREE.GLTFLoader().load(
+      'https://raw.githubusercontent.com/TheNeuralVault/Neural_Matrix_Vault_Official_Website/main/assets/marilyn_forever_ultimate.glb',
+      gltf => {
+        const marilyn = gltf.scene;
+        marilyn.scale.set(2.8, 2.8, 2.8);
+        scene.add(marilyn);
+
+        const mixer = new THREE.AnimationMixer(marilyn);
+        gltf.animations.forEach(clip => mixer.clipAction(clip).play());
+
+        function animate() {
+          requestAnimationFrame(animate);
+          mixer.update(0.016);
+          renderer.render(scene, camera);
+        }
+        animate();
+      }
+    );
+
+    // PLAY MUSIC ON FIRST TOUCH/CLICK
+    document.body.onclick = () => document.getElementById('heartbeat').play();
+
+    // RESPONSIVE
+    window.onresize = () => {
+      camera.aspect = innerWidth/innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(innerWidth, innerHeight);
+    };
+  </script>
+</body>
+</html>
