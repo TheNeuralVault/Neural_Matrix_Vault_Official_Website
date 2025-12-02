@@ -1,0 +1,39 @@
+/* marilyn.css – FINAL VERSION – GOOGLE DEFEAT EDITION */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Cormorant+Garamond:wght@300;700&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;background:#000;color:#fff;font-family:'Cormorant Garamond',serif;cursor:none}
+#resurrection-canvas{position:fixed;inset:0;z-index:1}
+
+#eternal-overlay{
+  position:fixed;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;z-index:10;pointer-events:none;font-family:'Orbitron',sans-serif;
+}
+.title{font-size:clamp(4rem,14vw,12rem);letter-spacing:12px;margin-bottom:20px}
+.glitch{color:#ff0066;animation:glitch 2.8s infinite;text-shadow:0 0 50px #ff0066}
+.status{font-size:1.6rem;letter-spacing:8px;margin:30px 0;opacity:0.9}
+.manifesto{font-size:clamp(1.6rem,5vw,2.8rem);line-height:1.7;max-width:90%;opacity:0.92}
+
+#timeline{
+  position:fixed;bottom:30px;left:0;width:100%;display:flex;gap:40px;padding:0 40px;overflow-x:auto;
+  scrollbar-width:none;z-index:10
+}
+.article{
+  min-width:320px;padding:30px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.15);
+  border-radius:16px;font-size:1.5rem;backdrop-filter:blur(12px);transition:transform .4s
+}
+.article:hover{transform:translateY(-12px);box-shadow:0 20px 40px rgba(255,0,102,0.4)}
+.article::before{content:attr(data-year);display:block;font-size:3.5rem;color:#ff0066;margin-bottom:8px}
+
+@keyframes glitch{
+  0%,100%{text-shadow:0 0 30px #ff0066}
+  10%{text-shadow:10px 0 #0ff,-10px 0 #f0f}
+  20%{text-shadow:-10px 0 #0ff,10px 0 #f0f}
+}
+
+/* Breathing stars background */
+body::before{
+  content:"";position:fixed;inset:0;background:radial-gradient(circle at 20% 80%,#ff006620 0%,transparent 50%),
+  radial-gradient(circle at 80% 20%,#00ffff10 0%,transparent 50%);pointer-events:none;animation:stars 20s infinite linear
+}
+@keyframes stars{0%{background-position:0 0}100%{background-position:100% 100%}}
