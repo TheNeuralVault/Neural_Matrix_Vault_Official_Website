@@ -1,0 +1,142 @@
+/* omega.css – TITANIUM & GLASS • OMEGA REALITY AESTHETIC */
+/* Seventh Pillar of the Singularity • Military-Grade • Immersion Supreme */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Share+Tech+Mono:wght@400;700&display=swap');
+
+:root {
+  --omega-purple: #9400d3;
+  --omega-glow: 0 0 80px rgba(148,0,211,0.9);
+  --omega-pulse: 0 0 180px rgba(148,0,211,0.7);
+  --deep-void: #000;
+  --glass: rgba(148,0,211,0.09);
+  --glass-border: 1px solid rgba(148,0,211,0.7);
+  --transition: all 1.1s cubic-bezier(0.23,1,0.32,1);
+}
+
+/* GLOBAL OMEGA FORTRESS */
+body.pillar-active {
+  background:var(--deep-void);
+  color:var(--omega-purple);
+  font-family:'Share Tech Mono', monospace;
+  overflow-x:hidden;
+}
+
+/* CANVAS LAYERS – REALITY BREATHES */
+#matrix-rain,
+#webgl-scene {
+  position:fixed; top:0; left:0; width:100%; height:100%; z-index:1;
+}
+.chromatic-scanlines {
+  position:fixed; top:0; left:0; width:100%; height:100%; z-index:2;
+  background:repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(148,0,211,0.07) 2px, rgba(148,0,211,0.07) 4px);
+  pointer-events:none; animation:omega-scan 7s linear infinite;
+}
+@keyframes omega-scan { 0% { transform:translateY(0); } 100% { transform:translateY(3px); } }
+
+/* CUSTOM CURSOR – THE HAND OF THE METAVERSE */
+.cursor-dot, .cursor-ring {
+  position:fixed; pointer-events:none; z-index:9999; border-radius:50%;
+  transform:translate(-50%,-50%);
+}
+.cursor-dot {
+  width:20px; height:20px; background:var(--omega-purple); box-shadow:var(--omega-glow);
+}
+.cursor-ring {
+  width:100px; height:100px; border:5px solid var(--omega-purple); opacity:0.9;
+  animation:omega-ring 2.5s infinite;
+}
+@keyframes omega-ring { 0%,100% { transform:translate(-50%,-50%) scale(1); opacity:0.9; } 50% { transform:translate(-50%,-50%) scale(2.8); opacity:0; } }
+
+/* HEADER – VOICE OF THE SEVENTH PILLAR */
+.hud-header {
+  position:fixed; top:0; left:0; width:100%; padding:20px 40px; display:flex; justify-content:space-between; align-items:center; z-index:100;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.98), transparent);
+  border-bottom:var(--glass-border);
+}
+.core-brand { font-family:'Orbitron', sans-serif; font-size:2.8rem; letter-spacing:12px; text-shadow:var(--omega-glow); }
+.dodeca { color:var(--omega-purple); animation:omega-pulse 3.8s infinite; }
+.pulse { animation:blink 1.4s infinite; }
+.back-to-singularity {
+  color:var(--omega-purple); text-decoration:none; font-size:1.5rem; letter-spacing:6px;
+  border:3px solid var(--omega-purple); padding:14px 36px; border-radius:10px;
+  transition:var(--transition);
+}
+.back-to-singularity:hover {
+  background:var(--omega-purple); color:#fff; box-shadow:var(--omega-pulse);
+}
+
+/* HERO – OMEGA REALITY EXPANDS */
+.hero-section {
+  position:relative; min-height:100vh; display:flex; align-items:center; justify-content:center; text-align:center; z-index:10;
+}
+.hero-content {
+  max-width:90%;
+}
+.status-badge.omega-glow {
+  display:inline-block; margin-bottom:45px; padding:18px 60px; background:rgba(148,0,211,0.18);
+  border:3px solid var(--omega-purple); border-radius:80px; font-size:1.7rem; letter-spacing:9px;
+  box-shadow:var(--omega-glow); animation:omega-status 3.2s infinite;
+}
+@keyframes omega-status { 0%,100% { box-shadow:0 0 60px rgba(148,0,211,0.9); } 50% { box-shadow:0 0 150px rgba(148,0,211,1); } }
+.glitch-title {
+  font-family:'Orbitron', sans-serif; font-size:clamp(5.5rem,19vw,17rem); letter-spacing:22px;
+  text-shadow:var(--omega-glow), 0 0 160px #90f; animation:omega-glitch 5s infinite;
+}
+@keyframes omega-glitch {
+  0%,100% { text-shadow:0 0 90px #90f, 0 0 160px #90f; }
+  3% { text-shadow:20px 0 #f0f, -20px 0 #ff0; }
+  6% { text-shadow:-20px 0 #f0f, 20px 0 #90f; }
+}
+.manifesto {
+  font-size:clamp(2rem,7.5vw,3.8rem); margin:80px 0; line-height:1.6; opacity:0.95;
+  text-shadow:var(--omega-glow);
+}
+.cta-dual {
+  margin-top:100px; display:flex; gap:60px; justify-content:center; flex-wrap:wrap;
+}
+.deploy-btn {
+  padding:28px 100px; background:transparent; color:var(--omega-purple); border:5px solid var(--omega-purple);
+  font-size:2.4rem; letter-spacing:8px; text-decoration:none; border-radius:16px;
+  box-shadow:var(--omega-glow); transition:var(--transition);
+}
+.deploy-btn:hover {
+  background:var(--omega-purple); color:#fff; box-shadow:0 0 200px rgba(148,0,211,1);
+  transform:scale(1.16);
+}
+
+/* INFO CARD – REALITY REVEAL */
+.info-reveal {
+  position:relative; padding:160px 40px; z-index:10;
+}
+.omega-card {
+  max-width:1500px; margin:0 auto; background:var(--glass); border:var(--glass-border);
+  border-radius:36px; padding:100px; box-shadow:0 70px 180px rgba(148,0,211,0.5);
+  animation:omega-card-reality 2.5s ease-out;
+}
+@keyframes omega-card-reality {
+  from { opacity:0; transform:translateY(180px) scale(0.75); filter:blur(22px); }
+  to { opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+}
+.info-mission, .info-benefits, .info-tech {
+  margin-bottom:80px;
+}
+.info-mission h4, .info-benefits h4, .info-tech h4 {
+  font-family:'Orbitron', sans-serif; color:var(--omega-purple); font-size:2.8rem; margin-bottom:40px;
+  letter-spacing:9px; text-shadow:var(--omega-glow);
+}
+.info-benefits ul {
+  list-style:none; padding-left:45px;
+}
+.info-benefits li {
+  position:relative; margin:25px 0; padding-left:45px; font-size:1.7rem;
+}
+.info-benefits li::before {
+  content:'🌌'; color:var(--omega-purple); position:absolute; left:0;
+}
+
+/* RESPONSIVE REALITY */
+@media (max-width: 768px) {
+  .hud-header { padding:15px 20px; flex-direction:column; gap:22px; }
+  .cta-dual { flex-direction:column; align-items:center; }
+  .omega-card { padding:70px 20px; }
+}
