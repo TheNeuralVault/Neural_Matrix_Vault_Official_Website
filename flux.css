@@ -1,0 +1,142 @@
+/* flux.css – TITANIUM & GLASS • FLUX VELOCITY AESTHETIC */
+/* Second Pillar of the Singularity • Military-Grade • Velocity Supreme */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Share+Tech+Mono:wght@400;700&display=swap');
+
+:root {
+  --flux-green: #00ff41;
+  --flux-glow: 0 0 60px rgba(0,255,65,0.7);
+  --flux-pulse: 0 0 120px rgba(0,255,65,0.4);
+  --deep-void: #000;
+  --glass: rgba(0,255,65,0.07);
+  --glass-border: 1px solid rgba(0,255,65,0.5);
+  --transition: all 0.7s cubic-bezier(0.25,0.8,0.25,1);
+}
+
+/* GLOBAL FLUX FORTRESS */
+body.pillar-active {
+  background:var(--deep-void);
+  color:var(--flux-green);
+  font-family:'Share Tech Mono', monospace;
+  overflow-x:hidden;
+}
+
+/* CANVAS LAYERS – VELOCITY BREATHES */
+#matrix-rain,
+#webgl-scene {
+  position:fixed; top:0; left:0; width:100%; height:100%; z-index:1;
+}
+.chromatic-scanlines {
+  position:fixed; top:0; left:0; width:100%; height:100%; z-index:2;
+  background:repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,65,0.05) 2px, rgba(0,255,65,0.05) 4px);
+  pointer-events:none; animation:flux-scan 4s linear infinite;
+}
+@keyframes flux-scan { 0% { transform:translateY(0); } 100% { transform:translateY(6px); } }
+
+/* CUSTOM CURSOR – THE HAND OF VELOCITY */
+.cursor-dot, .cursor-ring {
+  position:fixed; pointer-events:none; z-index:9999; border-radius:50%;
+  transform:translate(-50%,-50%);
+}
+.cursor-dot {
+  width:12px; height:12px; background:var(--flux-green); box-shadow:var(--flux-glow);
+}
+.cursor-ring {
+  width:60px; height:60px; border:3px solid var(--flux-green); opacity:0.7;
+  animation:flux-ring 1.8s infinite;
+}
+@keyframes flux-ring { 0%,100% { transform:translate(-50%,-50%) scale(1); opacity:0.7; } 50% { transform:translate(-50%,-50%) scale(1.8); opacity:0; } }
+
+/* HEADER – VOICE OF THE SECOND PILLAR */
+.hud-header {
+  position:fixed; top:0; left:0; width:100%; padding:20px 40px; display:flex; justify-content:space-between; align-items:center; z-index:100;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.95), transparent);
+  border-bottom:var(--glass-border);
+}
+.core-brand { font-family:'Orbitron', sans-serif; font-size:2.4rem; letter-spacing:8px; text-shadow:var(--flux-glow); }
+.dodeca { color:var(--flux-green); animation:flux-pulse 3s infinite; }
+.pulse { animation:blink 1s infinite; }
+.back-to-singularity {
+  color:var(--flux-green); text-decoration:none; font-size:1.1rem; letter-spacing:3px;
+  border:1px solid var(--flux-green); padding:8px 20px; border-radius:4px;
+  transition:var(--transition);
+}
+.back-to-singularity:hover {
+  background:var(--flux-green); color:#000; box-shadow:var(--flux-pulse);
+}
+
+/* HERO – FLUX IGNITES */
+.hero-section {
+  position:relative; min-height:100vh; display:flex; align-items:center; justify-content:center; text-align:center; z-index:10;
+}
+.hero-content {
+  max-width:90%;
+}
+.status-badge.flux-glow {
+  display:inline-block; margin-bottom:30px; padding:12px 40px; background:rgba(0,255,65,0.12);
+  border:1px solid var(--flux-green); border-radius:50px; font-size:1.3rem; letter-spacing:6px;
+  box-shadow:var(--flux-glow); animation:flux-status 2.5s infinite;
+}
+@keyframes flux-status { 0%,100% { box-shadow:0 0 30px rgba(0,255,65,0.6); } 50% { box-shadow:0 0 90px rgba(0,255,65,1); } }
+.glitch-title {
+  font-family:'Orbitron', sans-serif; font-size:clamp(4.5rem,15vw,13rem); letter-spacing:14px;
+  text-shadow:var(--flux-glow), 0 0 100px #0f9; animation:flux-glitch 4s infinite;
+}
+@keyframes flux-glitch {
+  0%,100% { text-shadow:0 0 50px #0f9, 0 0 100px #0f9; }
+  3% { text-shadow:10px 0 #f06, -10px 0 #ff0; }
+  6% { text-shadow:-10px 0 #f06, 10px 0 #0f9; }
+}
+.manifesto {
+  font-size:clamp(1.6rem,5.5vw,3rem); margin:50px 0; line-height:1.6; opacity:0.95;
+  text-shadow:var(--flux-glow);
+}
+.cta-dual {
+  margin-top:60px; display:flex; gap:40px; justify-content:center; flex-wrap:wrap;
+}
+.deploy-btn {
+  padding:20px 60px; background:transparent; color:var(--flux-green); border:3px solid var(--flux-green);
+  font-size:1.8rem; letter-spacing:5px; text-decoration:none; border-radius:8px;
+  box-shadow:var(--flux-glow); transition:var(--transition);
+}
+.deploy-btn:hover {
+  background:var(--flux-green); color:#000; box-shadow:0 0 120px rgba(0,255,65,0.9);
+  transform:scale(1.08);
+}
+
+/* INFO CARD – LIGHTNING REVEAL */
+.info-reveal {
+  position:relative; padding:120px 40px; z-index:10;
+}
+.flux-card {
+  max-width:1100px; margin:0 auto; background:var(--glass); border:var(--glass-border);
+  border-radius:20px; padding:60px; box-shadow:0 30px 100px rgba(0,255,65,0.3);
+  animation:flux-card-burst 1.8s ease-out;
+}
+@keyframes flux-card-burst {
+  from { opacity:0; transform:translateY(100px) scale(0.85); filter:blur(10px); }
+  to { opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+}
+.info-mission, .info-benefits, .info-tech {
+  margin-bottom:50px;
+}
+.info-mission h4, .info-benefits h4, .info-tech h4 {
+  font-family:'Orbitron', sans-serif; color:var(--flux-green); font-size:2rem; margin-bottom:25px;
+  letter-spacing:5px; text-shadow:var(--flux-glow);
+}
+.info-benefits ul {
+  list-style:none; padding-left:25px;
+}
+.info-benefits li {
+  position:relative; margin:15px 0; padding-left:25px; font-size:1.3rem;
+}
+.info-benefits li::before {
+  content:'⚡'; color:var(--flux-green); position:absolute; left:0;
+}
+
+/* RESPONSIVE VELOCITY */
+@media (max-width: 768px) {
+  .hud-header { padding:15px 20px; flex-direction:column; gap:15px; }
+  .cta-dual { flex-direction:column; align-items:center; }
+  .flux-card { padding:40px 20px; }
+}
