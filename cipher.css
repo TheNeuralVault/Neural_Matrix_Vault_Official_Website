@@ -1,0 +1,142 @@
+/* cipher.css – TITANIUM & GLASS • CIPHER PROTOCOL AESTHETIC */
+/* Fifth Pillar of the Singularity • Military-Grade • Security Supreme */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Share+Tech+Mono:wght@400;700&display=swap');
+
+:root {
+  --cipher-darkred: #8b0000;
+  --cipher-glow: 0 0 70px rgba(139,0,0,0.9);
+  --cipher-pulse: 0 0 150px rgba(139,0,0,0.6);
+  --deep-void: #000;
+  --glass: rgba(139,0,0,0.08);
+  --glass-border: 1px solid rgba(139,0,0,0.6);
+  --transition: all 1s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+/* GLOBAL CIPHER FORTRESS */
+body.pillar-active {
+  background:var(--deep-void);
+  color:var(--cipher-darkred);
+  font-family:'Share Tech Mono', monospace;
+  overflow-x:hidden;
+}
+
+/* CANVAS LAYERS – SECURITY BREATHES */
+#matrix-rain,
+#webgl-scene {
+  position:fixed; top:0; left:0; width:100%; height:100%; z-index:1;
+}
+.chromatic-scanlines {
+  position:fixed; top:0; left:0; width:100%; height:100%; z-index:2;
+  background:repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(139,0,0,0.06) 2px, rgba(139,0,0,0.06) 4px);
+  pointer-events:none; animation:cipher-scan 8s linear infinite;
+}
+@keyframes cipher-scan { 0% { transform:translateY(0); } 100% { transform:translateY(2px); } }
+
+/* CUSTOM CURSOR – THE HAND OF SECURITY */
+.cursor-dot, .cursor-ring {
+  position:fixed; pointer-events:none; z-index:9999; border-radius:50%;
+  transform:translate(-50%,-50%);
+}
+.cursor-dot {
+  width:16px; height:16px; background:var(--cipher-darkred); box-shadow:var(--cipher-glow);
+}
+.cursor-ring {
+  width:80px; height:80px; border:4px solid var(--cipher-darkred); opacity:0.8;
+  animation:cipher-ring 2.2s infinite;
+}
+@keyframes cipher-ring { 0%,100% { transform:translate(-50%,-50%) scale(1); opacity:0.8; } 50% { transform:translate(-50%,-50%) scale(2.2); opacity:0; } }
+
+/* HEADER – VOICE OF THE FIFTH PILLAR */
+.hud-header {
+  position:fixed; top:0; left:0; width:100%; padding:20px 40px; display:flex; justify-content:space-between; align-items:center; z-index:100;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.98), transparent);
+  border-bottom:var(--glass-border);
+}
+.core-brand { font-family:'Orbitron', sans-serif; font-size:2.6rem; letter-spacing:10px; text-shadow:var(--cipher-glow); }
+.dodeca { color:var(--cipher-darkred); animation:cipher-pulse 4s infinite; }
+.pulse { animation:blink 1.6s infinite; }
+.back-to-singularity {
+  color:var(--cipher-darkred); text-decoration:none; font-size:1.3rem; letter-spacing:5px;
+  border:2px solid var(--cipher-darkred); padding:12px 30px; border-radius:8px;
+  transition:var(--transition);
+}
+.back-to-singularity:hover {
+  background:var(--cipher-darkred); color:#fff; box-shadow:var(--cipher-pulse);
+}
+
+/* HERO – CIPHER LOCKS DOWN */
+.hero-section {
+  position:relative; min-height:100vh; display:flex; align-items:center; justify-content:center; text-align:center; z-index:10;
+}
+.hero-content {
+  max-width:90%;
+}
+.status-badge.cipher-glow {
+  display:inline-block; margin-bottom:40px; padding:16px 50px; background:rgba(139,0,0,0.15);
+  border:2px solid var(--cipher-darkred); border-radius:60px; font-size:1.5rem; letter-spacing:7px;
+  box-shadow:var(--cipher-glow); animation:cipher-status 3.5s infinite;
+}
+@keyframes cipher-status { 0%,100% { box-shadow:0 0 45px rgba(139,0,0,0.8); } 50% { box-shadow:0 0 120px rgba(139,0,0,1); } }
+.glitch-title {
+  font-family:'Orbitron', sans-serif; font-size:clamp(5rem,17vw,15rem); letter-spacing:18px;
+  text-shadow:var(--cipher-glow), 0 0 140px #b00; animation:cipher-glitch 5s infinite;
+}
+@keyframes cipher-glitch {
+  0%,100% { text-shadow:0 0 70px #b00, 0 0 140px #b00; }
+  3% { text-shadow:15px 0 #f00, -15px 0 #ff0; }
+  6% { text-shadow:-15px 0 #f00, 15px 0 #b00; }
+}
+.manifesto {
+  font-size:clamp(1.8rem,6.5vw,3.4rem); margin:60px 0; line-height:1.6; opacity:0.95;
+  text-shadow:var(--cipher-glow);
+}
+.cta-dual {
+  margin-top:80px; display:flex; gap:50px; justify-content:center; flex-wrap:wrap;
+}
+.deploy-btn {
+  padding:24px 80px; background:transparent; color:var(--cipher-darkred); border:4px solid var(--cipher-darkred);
+  font-size:2rem; letter-spacing:7px; text-decoration:none; border-radius:12px;
+  box-shadow:var(--cipher-glow); transition:var(--transition);
+}
+.deploy-btn:hover {
+  background:var(--cipher-darkred); color:#fff; box-shadow:0 0 160px rgba(139,0,0,1);
+  transform:scale(1.12);
+}
+
+/* INFO CARD – SECURITY REVEAL */
+.info-reveal {
+  position:relative; padding:140px 40px; z-index:10;
+}
+.cipher-card {
+  max-width:1300px; margin:0 auto; background:var(--glass); border:var(--glass-border);
+  border-radius:28px; padding:80px; box-shadow:0 50px 140px rgba(139,0,0,0.45);
+  animation:cipher-card-secure 2.1s ease-out;
+}
+@keyframes cipher-card-secure {
+  from { opacity:0; transform:translateY(140px) scale(0.8); filter:blur(15px); }
+  to { opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+}
+.info-mission, .info-benefits, .info-tech {
+  margin-bottom:60px;
+}
+.info-mission h4, .info-benefits h4, .info-tech h4 {
+  font-family:'Orbitron', sans-serif; color:var(--cipher-darkred); font-size:2.4rem; margin-bottom:30px;
+  letter-spacing:7px; text-shadow:var(--cipher-glow);
+}
+.info-benefits ul {
+  list-style:none; padding-left:35px;
+}
+.info-benefits li {
+  position:relative; margin:20px 0; padding-left:35px; font-size:1.5rem;
+}
+.info-benefits li::before {
+  content:'🔒'; color:var(--cipher-darkred); position:absolute; left:0;
+}
+
+/* RESPONSIVE SECURITY */
+@media (max-width: 768px) {
+  .hud-header { padding:15px 20px; flex-direction:column; gap:18px; }
+  .cta-dual { flex-direction:column; align-items:center; }
+  .cipher-card { padding:55px 20px; }
+  }
