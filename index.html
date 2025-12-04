@@ -1,360 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- --- [ 1. FORTRESS SECURITY & PERFORMANCE ] --- -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
-    <!-- CSP: MAX SECURITY (Whitelists Stripe, Fonts, Formspree, and Internal Scripts) -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://formspree.io https://*.stripe.com;">
-    
-    <!-- PRECONNECT (SPEED BOOST) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <!-- /// GOOGLE TAG: OMNIPRESENCE /// -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P1PCVNCCE4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-P1PCVNCCE4');
+    </script>
 
-    <title>NEURAL MATRIX VAULT | The Singularity</title>
+    <!-- /// IDENTITY: ELITE AGENCY PROTOCOL /// -->
+    <title>NEURAL MATRIX VAULT | Elite Web Architecture & Software Agency</title>
+    <meta name="description" content="Neural Matrix Vault is a premium Software Engineering Agency. We build 3D WebGL websites, AI-driven architectures, and digital infrastructure for global brands.">
     <link rel="canonical" href="https://neuralmatrixvault.com/">
     
-    <!-- --- [ 2. SEO WARHEAD: TOTAL DOMINATION ] --- -->
-    <meta name="description" content="The Neural Matrix Vault. The apex of digital architecture. We deploy high-frequency WebGL environments, AI-driven SEO structures, and sovereign digital fortresses for the new world wide web.">
-    <meta name="keywords" content="Neural Matrix, Digital Architecture, WebGL, AI SEO, Web3, Cyberpunk, Neural Vault, High Frequency Hosting, Digital Fortress, FinTech Web Design, Creator Economy">
-    <meta name="author" content="Neural Matrix Vault">
-    <meta name="robots" content="index, follow, max-image-preview:large">
-
-    <!-- --- [ 3. SOCIAL GRAPH ] --- -->
-    <meta property="og:locale" content="en_US">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="NEURAL MATRIX VAULT | System Online">
-    <meta property="og:description" content="The Empire is Online. Architecting the impossible.">
-    <meta property="og:url" content="https://neuralmatrixvault.com/">
-    <meta property="og:site_name" content="Neural Matrix Vault">
-    <meta property="og:image" content="https://neuralmatrixvault.com/neural-matrix-vault-singularity-digital-transformation-architecture.jpeg">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://neuralmatrixvault.com/neural-matrix-vault-singularity-digital-transformation-architecture.jpeg">
-
-    <!-- --- [ 4. APP CORE ] --- -->
+    <!-- /// ASSETS /// -->
+    <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#00f3ff">
-    <link rel="apple-touch-icon" href="https://img.icons8.com/fluency/512/processor.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- --- [ 5. SCHEMA: THE 7 PILLARS ] --- -->
+    <!-- /// SCHEMA: PROFESSIONAL SERVICE /// -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "Organization",
-          "name": "Neural Matrix Vault",
-          "url": "https://neuralmatrixvault.com/",
-          "logo": "https://neuralmatrixvault.com/logo.png",
-          "description": "Architects of the impenetrable. High-frequency digital infrastructure.",
-          "contactPoint": { "@type": "ContactPoint", "email": "theneuralvaultai@gmail.com", "contactType": "Sales" }
-        },
-        { "@type": "Product", "name": "The Neural Core", "description": "Flagship WebGL Architecture", "offers": { "@type": "Offer", "price": "2500.00", "priceCurrency": "USD" } },
-        { "@type": "Product", "name": "Flux Velocity", "description": "High-Speed Retail Architecture", "offers": { "@type": "Offer", "price": "899.00", "priceCurrency": "USD" } },
-        { "@type": "Product", "name": "Aero Protocol", "description": "Corporate Precision Architecture", "offers": { "@type": "Offer", "price": "1499.00", "priceCurrency": "USD" } },
-        { "@type": "Product", "name": "Nexus Stream", "description": "Creator Sovereignty Protocol", "offers": { "@type": "Offer", "price": "399.00", "priceCurrency": "USD" } },
-        { "@type": "Product", "name": "Cipher Protocol", "description": "FinTech & Web3 Security", "offers": { "@type": "Offer", "price": "3500.00", "priceCurrency": "USD" } },
-        { "@type": "Product", "name": "Prism SaaS", "description": "AI Dashboard Interface", "offers": { "@type": "Offer", "price": "2500.00", "priceCurrency": "USD" } },
-        { "@type": "Product", "name": "Omega Reality", "description": "Spatial Computing & VR", "offers": { "@type": "Offer", "price": "4500.00", "priceCurrency": "USD" } }
-      ]
+      "@type": "ProfessionalService",
+      "name": "Neural Matrix Vault",
+      "url": "https://neuralmatrixvault.com/",
+      "image": "https://neuralmatrixvault.com/logo.png",
+      "description": "High-End Software Development and Web Design Agency.",
+      "priceRange": "$$$",
+      "address": { "@type": "PostalAddress", "addressCountry": "US" }
     }
     </script>
-
-    <!-- FONTS & STYLES -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="style.css">
 </head>
-<body id="page-core">
+<body>
 
-    <!-- VISUAL ENGINES -->
-    <canvas id="matrix-rain"></canvas>
-    <canvas id="webgl-scene"></canvas>
-    <div class="scanlines"></div>
-    <div class="vignette"></div>
-    
-    <!-- UI INTERFACE -->
-    <div class="cursor-dot"></div>
-    <div class="cursor-circle"></div>
+    <!-- /// GOD ENGINE: VISUAL CORE /// -->
+    <div id="canvas-container"><canvas id="matrix-rain"></canvas></div>
+    <div class="overlay-scanlines"></div>
+    <div class="overlay-vignette"></div>
 
     <header class="hud-header">
-        <div class="brand">
-            <span class="brand-icon">❖</span>
-            NEURAL<span class="pulse">_MATRIX</span>
-        </div>
-        <div class="construction-banner">
-            <span class="blink-fast">///</span> EMPIRE_EXPANSION_ACTIVE <span class="blink-fast">///</span>
-        </div>
-        <nav class="hud-nav">
-            <a href="#matrix" class="nav-item">THE_7_PILLARS</a>
-            <a href="#services" class="nav-item">SERVICES</a>
-            <a href="#assets" class="nav-item">ARMORY</a>
-            <a href="#contact" class="nav-item">UPLINK</a>
-        </nav>
+        <div class="brand">NEURAL<span class="pulse">_MATRIX</span></div>
+        <div class="status-indicator"><span class="blink">●</span> AGENCY_ONLINE</div>
     </header>
 
-    <main id="scroll-container">
-        
-        <!-- HERO: THE SINGULARITY -->
+    <main>
+        <!-- HERO SECTION -->
         <section class="hero-section">
-            <div class="hero-content">
-                <div class="status-badge warning">
-                    <span class="blink">●</span> ARCHITECTING THE IMPOSSIBLE
-                </div>
-                <h1 class="mega-title glitch" data-text="THE_SINGULARITY">
-                    THE_SINGULARITY
-                </h1>
-                
-                <!-- ARTIFACT VESSEL: 3D ENGINE INJECTS HERE -->
-                <div class="hero-artifact-container" id="singularity-vessel"></div>
-
-                <p class="hero-sub">
-                    Titanium Code. Artificial Intelligence. Infinite Scale.<br>
-                    <span style="color:#fff;">We don't just build websites. We build Fortresses.</span>
-                </p>
-                <div style="margin-top: 30px;">
-                    <a href="#matrix" class="cta-btn">ENTER THE EMPIRE</a>
-                </div>
-            </div>
+            <h1 class="mega-title glitch" data-text="THE_SINGULARITY">THE_SINGULARITY</h1>
+            <p class="hero-sub">
+                Elite Software Architecture. <br>
+                <span class="highlight">We Build Empires. Not Scams.</span>
+            </p>
         </section>
 
-        <!-- SECTION 1: THE SEVEN PILLARS -->
-        <section id="matrix" class="content-section">
-            <div class="section-header">
-                <span class="mono">/// THE_SEVEN_PILLARS</span>
-                <div class="line"></div>
-            </div>
-
-            <!-- THE GRID -->
-            <div class="bento-grid">
-                
-                <!-- 1. THE NEURAL CORE (THE KING) -->
-                <div class="cell span-3 glass-panel pillar-core">
-                    <div class="cell-content">
-                        <div class="flex-row">
-                            <i data-lucide="cpu" class="icon-brand" style="color:var(--color-core)"></i>
-                            <span class="tag">THE_FOUNDATION</span>
-                        </div>
-                        <h3>The Neural Core</h3>
-                        <p>Complete digital transformation. 3D WebGL integration, high-frequency hosting, and AI-driven SEO structure.</p>
-                        <div class="price-lock">
-                            <span class="mono">$2,500</span>
-                            <!-- Direct Stripe Link -->
-                            <a href="https://buy.stripe.com/7sY7sL8dib6SbuvbPt8g001" class="buy-trigger" target="_blank" rel="noopener noreferrer">DEPLOY</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 2. FLUX VELOCITY -->
-                <div class="cell glass-panel pillar-flux">
-                    <div class="cell-content">
-                        <i data-lucide="zap" class="icon-brand" style="color:var(--color-flux)"></i>
-                        <h3>Flux Velocity</h3>
-                        <p class="mono-dim">High-speed retail architecture. Kinetic visuals.</p>
-                        <div class="price-lock">
-                            <span class="mono">$899</span>
-                            <!-- Expansion Wing Link -->
-                            <a href="flux.html" class="buy-trigger small">ENTER</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 3. AERO PROTOCOL -->
-                <div class="cell glass-panel pillar-aero">
-                    <div class="cell-content">
-                        <i data-lucide="wind" class="icon-brand" style="color:var(--color-aero)"></i>
-                        <h3>Aero Protocol</h3>
-                        <p class="mono-dim">Corporate precision & trust. Swiss-grid design.</p>
-                        <div class="price-lock">
-                            <span class="mono">$1,499</span>
-                            <!-- Expansion Wing Link -->
-                            <a href="aero.html" class="buy-trigger small">ENTER</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 4. NEXUS STREAM -->
-                <div class="cell glass-panel pillar-nexus">
-                    <div class="cell-content">
-                        <i data-lucide="smartphone" class="icon-brand" style="color:var(--color-nexus)"></i>
-                        <h3>Nexus Stream</h3>
-                        <p class="mono-dim">Creator sovereignty system. Mobile Command Center.</p>
-                        <div class="price-lock">
-                            <span class="mono">$399</span>
-                            <!-- Expansion Wing Link -->
-                            <a href="nexus.html" class="buy-trigger small">ENTER</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 5. CIPHER PROTOCOL -->
-                <div class="cell glass-panel pillar-cipher">
-                    <div class="cell-content">
-                        <i data-lucide="lock" class="icon-brand" style="color:var(--color-cipher)"></i>
-                        <h3>Cipher Protocol</h3>
-                        <p class="mono-dim">FinTech & Web3 Security Architecture. Granite Wealth.</p>
-                        <div class="price-lock">
-                            <span class="mono">$3,500</span>
-                            <!-- Expansion Wing Link -->
-                            <a href="cipher.html" class="buy-trigger small">ENTER</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 6. PRISM SaaS -->
-                <div class="cell glass-panel pillar-prism">
-                    <div class="cell-content">
-                        <i data-lucide="layers" class="icon-brand" style="color:var(--color-prism)"></i>
-                        <h3>Prism SaaS</h3>
-                        <p class="mono-dim">AI Dashboard & Software Interface Design. Liquid Intel.</p>
-                        <div class="price-lock">
-                            <span class="mono">$2,500</span>
-                            <!-- Expansion Wing Link -->
-                            <a href="prism.html" class="buy-trigger small">ENTER</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 7. OMEGA REALITY -->
-                <div class="cell glass-panel pillar-omega">
-                    <div class="cell-content">
-                        <i data-lucide="box" class="icon-brand" style="color:var(--color-omega)"></i>
-                        <h3>Omega Reality</h3>
-                        <p class="mono-dim">Spatial Computing & 3D Immersive. Beyond the Screen.</p>
-                        <div class="price-lock">
-                            <span class="mono">$4,500</span>
-                            <!-- Expansion Wing Link -->
-                            <a href="omega.html" class="buy-trigger small">ENTER</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- SECTION 2: UTILITY SERVICES -->
-        <section id="services" class="content-section">
-            <div class="section-header">
-                <span class="mono">/// UTILITY_SERVICES</span>
-                <div class="line"></div>
-            </div>
-
-            <div class="bento-grid">
-                <!-- SIGNAL AMP -->
-                <div class="cell glass-panel">
-                    <i data-lucide="signal" class="icon-brand"></i>
-                    <h3>Signal Amplification</h3>
-                    <p class="mono-dim">AI-driven Semantic SEO.</p>
-                    <div class="price-lock">
-                        <span class="mono">$299.00 / mo</span>
-                        <a href="https://buy.stripe.com/14AcN5alq2Am9mn8Dh8g005" class="buy-trigger small" target="_blank" rel="noopener noreferrer">SUBSCRIBE</a>
-                    </div>
-                </div>
-
-                <!-- WORKFLOW -->
-                <div class="cell glass-panel">
-                    <i data-lucide="bot" class="icon-brand"></i>
-                    <h3>Workflow Automata</h3>
-                    <p class="mono-dim">Silent code automation scripts.</p>
-                    <div class="price-lock">
-                        <span class="mono">$750.00</span>
-                        <a href="https://buy.stripe.com/9B65kD5163Eq7ef4n18g006" class="buy-trigger small" target="_blank" rel="noopener noreferrer">AUTOMATE</a>
-                    </div>
-                </div>
-
-                <!-- FORTRESS (THE CREED) -->
-                <div class="cell glass-panel">
-                    <i data-lucide="shield-check" class="icon-brand"></i>
-                    <h3>Digital Fortress</h3>
-                    <p class="mono-dim">Others sell domains. We create impenetrable fortresses that last forever.</p>
-                    <div class="price-lock">
-                        <span class="mono">$500.00</span>
-                        <a href="https://buy.stripe.com/7sYbJ1ctya2O9mn6v98g007" class="buy-trigger small" target="_blank" rel="noopener noreferrer">SECURE</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 3: DIGITAL ARMORY (ASSETS) -->
-        <section id="assets" class="content-section">
-            <div class="section-header">
-                <span class="mono">/// DIGITAL_ARMORY</span>
-                <div class="line"></div>
-            </div>
-            <div class="bento-grid">
-                <!-- STREAMER OVERLAY -->
-                <div class="cell glass-panel">
-                    <i data-lucide="monitor-play" class="icon-brand"></i>
-                    <h3>Neural_HUD Overlay</h3>
-                    <p class="mono-dim">OBS/Streamlabs broadcast package.</p>
-                    <div class="price-lock">
-                        <span class="mono">$39.00</span>
-                        <a href="https://buy.stripe.com/9B65kD5163Eq7ef4n18g006" class="buy-trigger small" target="_blank" rel="noopener noreferrer">DOWNLOAD</a>
-                    </div>
-                </div>
-
-                <!-- NEURAL GLYPHS -->
-                <div class="cell glass-panel">
-                    <i data-lucide="folder-output" class="icon-brand"></i>
-                    <h3>Neural_Glyphs</h3>
-                    <p class="mono-dim">50+ Cyberpunk Icons & Assets.</p>
-                    <div class="price-lock">
-                        <span class="mono">$29.00</span>
-                        <a href="https://buy.stripe.com/14AcN5alq2Am9mn8Dh8g005" class="buy-trigger small" target="_blank" rel="noopener noreferrer">GET ASSETS</a>
-                    </div>
-                </div>
-
-                <!-- CONTENT MATRIX -->
-                <div class="cell glass-panel">
-                    <i data-lucide="layout-grid" class="icon-brand"></i>
-                    <h3>Content Matrix</h3>
-                    <p class="mono-dim">Notion OS for Viral Strategy.</p>
-                    <div class="price-lock">
-                        <span class="mono">$29.00</span>
-                        <a href="https://buy.stripe.com/aFa3cv2SY3EqaqrcTx8g002" class="buy-trigger small" target="_blank" rel="noopener noreferrer">GET SYSTEM</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CONTACT FORM (BULLETPROOF) -->
-        <section id="contact" class="content-section" style="max-width: 600px; margin: 0 auto;">
-            <div class="section-header">
-                <span class="mono">/// ENCRYPTED_UPLINK</span>
-                <div class="line"></div>
-            </div>
+        <!-- THE 7 PILLARS (PORTAL GRID) -->
+        <section class="portal-grid">
             
-            <form action="https://formspree.io/f/mblndgrz" method="POST" class="glass-panel form-container">
-                <div class="form-group">
-                    <label>IDENTITY_TOKEN (EMAIL)</label>
-                    <input type="email" name="email" required placeholder="ENTER_EMAIL">
+            <!-- 1. NEURAL CORE -->
+            <a href="/neuralcore/" class="portal-card neural-theme">
+                <div class="card-icon"><i data-lucide="cpu"></i></div>
+                <div class="card-text">
+                    <h3>NEURAL CORE</h3>
+                    <p>3D WebGL Infrastructure</p>
                 </div>
-                <div class="form-group">
-                    <label>DATA_PACKET (MESSAGE)</label>
-                    <textarea name="message" rows="4" required placeholder="ENTER_PARAMETERS"></textarea>
+            </a>
+
+            <!-- 2. FLUX VELOCITY -->
+            <a href="/fluxvelocity/" class="portal-card flux-theme">
+                <div class="card-icon"><i data-lucide="zap"></i></div>
+                <div class="card-text">
+                    <h3>FLUX VELOCITY</h3>
+                    <p>High-Speed Conversion</p>
                 </div>
-                <button type="submit" class="submit-btn">TRANSMIT TO VAULT</button>
-            </form>
+            </a>
+
+            <!-- 3. AERO PROTOCOL -->
+            <a href="/aeroprotocol/" class="portal-card aero-theme">
+                <div class="card-icon"><i data-lucide="wind"></i></div>
+                <div class="card-text">
+                    <h3>AERO PROTOCOL</h3>
+                    <p>Corporate Minimalism</p>
+                </div>
+            </a>
+
+            <!-- 4. NEXUS STREAM -->
+            <a href="/nexusstream/" class="portal-card nexus-theme">
+                <div class="card-icon"><i data-lucide="smartphone"></i></div>
+                <div class="card-text">
+                    <h3>NEXUS STREAM</h3>
+                    <p>Mobile Sovereignty</p>
+                </div>
+            </a>
+
+            <!-- 5. CIPHER PROTOCOL -->
+            <a href="/cipherprotocol/" class="portal-card cipher-theme">
+                <div class="card-icon"><i data-lucide="shield-check"></i></div>
+                <div class="card-text">
+                    <h3>CIPHER PROTOCOL</h3>
+                    <p>Hardened Security</p>
+                </div>
+            </a>
+
+            <!-- 6. PRISM SAAS -->
+            <a href="/prismsaas/" class="portal-card prism-theme">
+                <div class="card-icon"><i data-lucide="layers"></i></div>
+                <div class="card-text">
+                    <h3>PRISM SAAS</h3>
+                    <p>Software Dashboard UI</p>
+                </div>
+            </a>
+
+            <!-- 7. OMEGA REALITY -->
+            <a href="/omegareality/" class="portal-card omega-theme">
+                <div class="card-icon"><i data-lucide="glasses"></i></div>
+                <div class="card-text">
+                    <h3>OMEGA REALITY</h3>
+                    <p>Spatial Computing / AR</p>
+                </div>
+            </a>
+
         </section>
-
-        <footer class="hud-footer" style="display:flex; flex-direction:column; gap:10px; align-items:center; text-align:center;">
-            <div class="mono">NEURAL MATRIX VAULT &copy; 2025 // FORTRESS_SECURE</div>
-            <div style="margin-top:5px;">
-                <a href="legal.html" style="color:#555; text-decoration:none; font-size:0.7rem; font-family:'Space Mono'; margin:0 10px;">LEGAL & PRIVACY</a>
-                <a href="mailto:theneuralvaultai@gmail.com" style="color:#555; text-decoration:none; font-size:0.7rem; font-family:'Space Mono'; margin:0 10px;">SUPPORT</a>
-            </div>
-        </footer>
-
     </main>
 
-    <!-- ENGINES (DEFERRED) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js" defer></script>
-    <script src="app.js" defer></script>
+    <!-- FOOTER: LEGAL SHIELD -->
+    <footer class="hud-footer">
+        <div class="legal-disclaimer">
+            <p><strong>DISCLAIMER:</strong> Neural Matrix Vault is a software development agency. We sell code, design, and digital architecture. We do not offer financial services, investments, or banking products.</p>
+        </div>
+        <div class="footer-links">
+            <a href="legal.html">LEGAL_PROTOCOLS</a>
+            <span class="separator">|</span>
+            <a href="mailto:theneuralvaultai@gmail.com">CONTACT_HQ</a>
+        </div>
+        <div class="copyright">SYSTEM_OPTIMAL // 2025</div>
+    </footer>
+
+    <!-- LOGIC CORE -->
+    <script src="app.js"></script>
+    <script>lucide.createIcons();</script>
 </body>
-  </html>
+</html>
