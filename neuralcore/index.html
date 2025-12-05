@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE NEURAL CORE | 3D WebGL Architecture</title>
+    
+    <!-- /// GOOGLE TAG (MANDATORY) /// -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P1PCVNCCE4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-P1PCVNCCE4');
+    </script>
+
+    <meta name="description" content="The Neural Core: Flagship 3D Website Architecture using Three.js and WebGL for maximum brand dominance.">
+    
+    <!-- GLOBAL + LOCAL ASSETS -->
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="neural.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    
+    <!-- 3D PARTICLE BRAIN -->
+    <div id="neural-canvas"></div>
+
+    <header class="hud-header">
+        <div class="brand"><a href="../index.html">← HUB</a> / NEURAL_CORE</div>
+        <div class="status-indicator" style="border-color:#00f3ff; color:#00f3ff;">SYSTEM_ACTIVE</div>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <h1 class="mega-title" style="color:#00f3ff; text-shadow:0 0 30px rgba(0,243,255,0.5);">NEURAL CORE</h1>
+            <p class="hero-sub">The Flagship Protocol. <br><span class="highlight">Total Digital Transformation.</span></p>
+        </section>
+
+        <!-- TRANSLATION TERMINAL (Plain vs Tech) -->
+        <section class="glass-panel terminal-board">
+            <div class="terminal-header">
+                <button onclick="toggleLang('plain')" class="term-btn active" id="btn-plain">PLAIN ENGLISH</button>
+                <button onclick="toggleLang('tech')" class="term-btn" id="btn-tech">TECH SPEAK</button>
+            </div>
+            
+            <div id="content-plain" class="term-content">
+                <h3>/// THE OVERVIEW</h3>
+                <p>This is a complete website overhaul. We build you a stunning, 3D animated website that loads instantly and ranks #1 on Google. It turns visitors into high-ticket clients by proving you are the premium option in your market.</p>
+            </div>
+            
+            <div id="content-tech" class="term-content" style="display:none;">
+                <h3>/// TECHNICAL SPECIFICATIONS</h3>
+                <p>A WebGL-accelerated DOM structure utilizing Three.js for high-frequency visual retention. Includes Semantic HTML5 scaffolding for crawler dominance, aggregated JSON-LD Schema, and asynchronous server-side rendering (SSR).</p>
+            </div>
+        </section>
+
+        <!-- TIER GRID -->
+        <section class="portal-grid">
+            <!-- TIER 1 -->
+            <div class="portal-card neural-theme">
+                <div class="card-text">
+                    <h3 style="color:#00f3ff">INITIATE</h3>
+                    <p class="mono">$1,500</p>
+                    <ul class="specs">
+                        <li>5-Page Static Build</li>
+                        <li>Standard SEO Pack</li>
+                        <li>Mobile Responsive</li>
+                    </ul>
+                    <a href="initiate.html" class="btn-enter">DEPLOY INITIATE</a>
+                </div>
+            </div>
+
+            <!-- TIER 2 -->
+            <div class="portal-card neural-theme" style="border-color:#00f3ff; box-shadow:0 0 20px rgba(0,243,255,0.2);">
+                <div class="card-text">
+                    <h3 style="color:#fff">OPERATOR</h3>
+                    <p class="mono" style="color:#00f3ff">$2,500</p>
+                    <ul class="specs">
+                        <li>WebGL 3D Elements</li>
+                        <li>CMS Integration</li>
+                        <li>Advanced Schema</li>
+                    </ul>
+                    <a href="operator.html" class="btn-enter" style="background:#00f3ff; color:#000;">DEPLOY OPERATOR</a>
+                </div>
+            </div>
+
+            <!-- TIER 3 -->
+            <div class="portal-card neural-theme">
+                <div class="card-text">
+                    <h3 style="color:#00f3ff">TITAN</h3>
+                    <p class="mono">$5,000+</p>
+                    <ul class="specs">
+                        <li>Full Custom Javascript App</li>
+                        <li>AI Chatbot Agent</li>
+                        <li>Competitor Nuke Protocol</li>
+                    </ul>
+                    <a href="titan.html" class="btn-enter">DEPLOY TITAN</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="neural.js"></script>
+    <script>
+        lucide.createIcons();
+        function toggleLang(type) {
+            document.getElementById('content-plain').style.display = type === 'plain' ? 'block' : 'none';
+            document.getElementById('content-tech').style.display = type === 'tech' ? 'block' : 'none';
+            document.getElementById('btn-plain').classList.toggle('active', type === 'plain');
+            document.getElementById('btn-tech').classList.toggle('active', type === 'tech');
+        }
+    </script>
+</body>
+</html>
