@@ -1,10 +1,11 @@
 {
   "name": "Neural Matrix Vault",
-  "short_name": "NMV",
+  "short_name": "NeuralVault",
   "start_url": "/index.html",
   "display": "standalone",
-  "background_color": "#050505",
+  "background_color": "#030303",
   "theme_color": "#00f3ff",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "https://img.icons8.com/fluency/512/processor.png",
