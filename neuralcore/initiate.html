@@ -3,61 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INITIATE | The Monolith</title>
+    <title>INITIATE | The Architect</title>
     
     <!-- GOOGLE TAG -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-P1PCVNCCE4"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-P1PCVNCCE4');</script>
     
     <!-- ASSETS -->
-    <link rel="stylesheet" href="../style.css"> <!-- Global -->
-    <link rel="stylesheet" href="initiate.css"> <!-- Local -->
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="initiate.css">
     
+    <!-- ENGINES -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 </head>
 <body>
-    <div id="canvas-container"></div>
+    <!-- WEBGL VIEWPORT -->
+    <div id="gl-viewport"></div>
 
-    <nav class="top-nav">
-        <a href="index.html">← SECTOR HUB</a>
+    <!-- UI LAYER -->
+    <nav class="hud-nav">
+        <a href="index.html" class="back-link">
+            <span class="icon">←</span> SECTOR_ZERO
+        </a>
+        <div class="sys-status">
+            <span class="blink">●</span> RENDER_ENGINE: ACTIVE
+        </div>
     </nav>
 
-    <div class="smooth-scroll">
-        <section class="parallax-section">
-            <div>
-                <h1 class="big-text">PURE.<br>STATIC.<br>POWER.</h1>
-                <p class="sub-text">The Initiate Protocol. Zero bloat. Maximum impact.</p>
+    <!-- SCROLL NARRATIVE -->
+    <main class="scroll-container">
+        <section class="chapter" data-speed="0.5">
+            <div class="text-block">
+                <h1 class="glitch-reveal">STRUCTURE.</h1>
+                <p class="mono-sub">Algorithmic perfection. <br>Infinite scalability.</p>
             </div>
         </section>
-        <section class="parallax-section dark-mode">
-            <div>
-                <h1 class="big-text highlight">SPEED<br>KILLS.</h1>
-                <p class="sub-text">Semantic HTML5 architecture optimized for 100/100 Lighthouse scores.</p>
-            </div>
-        </section>
-    </div>
 
-    <div class="purchase-bar">
-        <div>
-            <div class="meta-label">CLASS: INITIATE</div>
-            <div class="price-tag">$1,500</div>
+        <section class="chapter right-align" data-speed="0.8">
+            <div class="text-block">
+                <h1 class="glitch-reveal">VELOCITY.</h1>
+                <p class="mono-sub">Zero-latency static architecture. <br>Built for the speed of light.</p>
+            </div>
+        </section>
+
+        <section class="chapter center-align" data-speed="1.0">
+            <div class="text-block">
+                <h1 class="glitch-reveal">AUTHORITY.</h1>
+                <p class="mono-sub">Dominate the index.</p>
+            </div>
+        </section>
+        
+        <div class="spacer"></div>
+    </main>
+
+    <!-- TRANSACTION INTERFACE -->
+    <div class="purchase-dock">
+        <div class="meta-info">
+            <span class="label">CLASS_INITIATE</span>
+            <span class="value">$1,500.00</span>
         </div>
-        <button id="deployBtn" class="deploy-btn">DEPLOY NOW</button>
+        <button id="deployTrigger" class="titan-btn">INITIALIZE DEPLOYMENT</button>
     </div>
 
-    <!-- FORM MODAL -->
-    <div class="modal" id="modal">
-        <div class="glass-panel form-box">
-            <div class="close-btn" id="closeBtn">CLOSE</div>
-            <h2>SECURE INITIATE</h2>
-            <form action="https://formspree.io/f/mblndgrz" method="POST">
-                <input type="hidden" name="product" value="INITIATE">
-                <input type="text" name="name" placeholder="NAME" required>
-                <input type="email" name="email" placeholder="EMAIL" required>
-                <button class="deploy-btn full-width">CONFIRM</button>
+    <!-- MODAL OVERLAY -->
+    <div class="modal-backdrop" id="modal">
+        <div class="modal-frame">
+            <div class="modal-header">
+                <h3>SECURE_ASSET</h3>
+                <button id="closeModal" class="close-icon">×</button>
+            </div>
+            <form action="https://formspree.io/f/mblndgrz" method="POST" class="titan-form">
+                <input type="hidden" name="product" value="NEURAL_CORE_INITIATE">
+                
+                <div class="input-group">
+                    <label>IDENTITY_TOKEN</label>
+                    <input type="text" name="name" required autocomplete="off">
+                    <div class="scan-line"></div>
+                </div>
+                
+                <div class="input-group">
+                    <label>ENCRYPTED_COMMS</label>
+                    <input type="email" name="email" required autocomplete="off">
+                    <div class="scan-line"></div>
+                </div>
+
+                <button type="submit" class="titan-btn full">EXECUTE TRANSACTION</button>
             </form>
         </div>
     </div>
