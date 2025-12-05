@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEPLOY INITIATE | Neural Core</title>
+    
+    <!-- GOOGLE TAG -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P1PCVNCCE4"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-P1PCVNCCE4');</script>
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="neural.css">
+</head>
+<body>
+    <div id="neural-canvas"></div> <!-- Reusing the 3D background -->
+
+    <header class="hud-header">
+        <div class="brand"><a href="index.html">← BACK</a> / DEPLOY_INITIATE</div>
+    </header>
+
+    <main style="max-width: 600px; margin: 120px auto; padding: 20px;">
+        <div class="glass-panel" style="border-top: 4px solid #00f3ff;">
+            <h2 class="mega-title" style="font-size: 2rem; margin-bottom: 10px;">INITIATE PROTOCOL</h2>
+            <p class="mono" style="color:#00f3ff; margin-bottom: 30px;">TARGET: NEURAL CORE (TIER 1) // $1,500</p>
+            
+            <form action="https://formspree.io/f/mblndgrz" method="POST">
+                <!-- HIDDEN TRACKING -->
+                <input type="hidden" name="project_type" value="NEURAL_CORE_INITIATE">
+                
+                <div style="margin-bottom: 20px;">
+                    <label class="mono" style="font-size:0.7rem; color:#888; display:block; margin-bottom:5px;">IDENTITY (NAME)</label>
+                    <input type="text" name="name" required style="width:100%; padding:15px; background:rgba(0,0,0,0.5); border:1px solid #333; color:#fff; font-family:inherit;">
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label class="mono" style="font-size:0.7rem; color:#888; display:block; margin-bottom:5px;">DIGITAL_ID (EMAIL)</label>
+                    <input type="email" name="email" required style="width:100%; padding:15px; background:rgba(0,0,0,0.5); border:1px solid #333; color:#fff; font-family:inherit;">
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label class="mono" style="font-size:0.7rem; color:#888; display:block; margin-bottom:5px;">PARAMETERS (MESSAGE)</label>
+                    <textarea name="message" rows="4" style="width:100%; padding:15px; background:rgba(0,0,0,0.5); border:1px solid #333; color:#fff; font-family:inherit;"></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn" style="width:100%; background:#00f3ff; color:#000;">AUTHORIZE DEPLOYMENT</button>
+            </form>
+        </div>
+    </main>
+    <script src="neural.js"></script>
+</body>
+</html>
