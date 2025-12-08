@@ -1,186 +1,111 @@
-/**
- * NEURAL CORE: INITIATE PROTOCOL
- * ARCHITECT: MAGNUS OPUS
- * RENDER ENGINE: THREE.JS + INSTANCED MESHING
- */
+// /// NEURAL CORE: SYNAPTIC ENGINE ///
+console.log("/// NEURAL CORE: ONLINE");
 
-class InitiateEngine {
-    constructor() {
-        this.container = document.getElementById('gl-viewport');
-        this.scene = null;
-        this.camera = null;
-        this.renderer = null;
-        this.monoliths = null;
-        this.time = 0;
+// --- 1. THE 3D BRAIN (THREE.JS) ---
+const container = document.getElementById('neural-canvas');
+if (container) {
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    container.appendChild(renderer.domElement);
+
+    // Create the Neural Web (Points + Lines)
+    const particleCount = 600; 
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+
+    // Spherical Distribution
+    for(let i = 0; i < particleCount * 3; i+=3) {
+        const r = 8;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(2 * Math.random() - 1);
         
-        // Configuration
-        this.config = {
-            count: 1500,
-            color: 0x111111,
-            highlight: 0x00f3ff,
-            fogDensity: 0.02
-        };
-
-        this.init();
-        this.createMonolithField();
-        this.initLights();
-        this.animate();
-        this.handleResize();
+        positions[i] = r * Math.sin(phi) * Math.cos(theta);
+        positions[i+1] = r * Math.sin(phi) * Math.sin(theta);
+        positions[i+2] = r * Math.cos(phi);
     }
 
-    init() {
-        // Scene Setup
-        this.scene = new THREE.Scene();
-        this.scene.fog = new THREE.FogExp2(0x000000, this.config.fogDensity);
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
-        // Camera Setup
-        this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        this.camera.position.set(0, 5, 20);
+    // Materials
+    const pMaterial = new THREE.PointsMaterial({ size: 0.05, color: 0x00f3ff, transparent: true, opacity: 0.8 });
+    const particles = new THREE.Points(geometry, pMaterial);
+    scene.add(particles);
 
-        // Renderer Setup
-        this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
-        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        this.container.appendChild(this.renderer.domElement);
-    }
+    // Wireframe Sphere (The Synapses)
+    const wireGeo = new THREE.IcosahedronGeometry(8, 2);
+    const wireMat = new THREE.MeshBasicMaterial({ color: 0x00f3ff, wireframe: true, transparent: true, opacity: 0.05 });
+    const network = new THREE.Mesh(wireGeo, wireMat);
+    scene.add(network);
 
-    initLights() {
-        // Cinematic Lighting
-        const ambient = new THREE.AmbientLight(0x404040);
-        this.scene.add(ambient);
+    camera.position.z = 15;
 
-        const dirLight = new THREE.DirectionalLight(0xffffff, 1);
-        dirLight.position.set(10, 20, 10);
-        this.scene.add(dirLight);
+    // Interaction Variables
+    let mouseX = 0;
+    let mouseY = 0;
+    document.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX - window.innerWidth / 2) * 0.001;
+        mouseY = (e.clientY - window.innerHeight / 2) * 0.001;
+    });
 
-        const accentLight = new THREE.PointLight(this.config.highlight, 2, 50);
-        accentLight.position.set(0, 10, 0);
-        this.scene.add(accentLight);
-    }
-
-    createMonolithField() {
-        // Algorithmic Geometry: InstancedMesh for O(1) Draw Calls
-        const geometry = new THREE.BoxGeometry(1, 1, 1);
-        const material = new THREE.MeshPhysicalMaterial({
-            color: this.config.color,
-            metalness: 0.8,
-            roughness: 0.2,
-            clearcoat: 1.0
-        });
-
-        this.monoliths = new THREE.InstancedMesh(geometry, material, this.config.count);
+    // Animation Loop
+    function animate() {
+        requestAnimationFrame(animate);
         
-        const dummy = new THREE.Object3D();
-        const width = 60;
-        const depth = 60;
-
-        for (let i = 0; i < this.config.count; i++) {
-            // Procedural Distribution
-            const x = (Math.random() - 0.5) * width;
-            const z = (Math.random() - 0.5) * depth;
-            const y = Math.random() * Math.random() * 10; // Bias towards bottom
-
-            // Scale variation based on Perlin-like noise logic (simplified)
-            const scaleY = Math.random() * 5 + 1;
-            const scaleXZ = Math.random() * 0.5 + 0.5;
-
-            dummy.position.set(x, y - 5, z);
-            dummy.scale.set(scaleXZ, scaleY, scaleXZ);
-            dummy.updateMatrix();
-            
-            this.monoliths.setMatrixAt(i, dummy.matrix);
-        }
-
-        this.scene.add(this.monoliths);
-    }
-
-    animate() {
-        requestAnimationFrame(this.animate.bind(this));
-        this.time += 0.002;
-
-        // Subtle World Rotation (Quaternion-like smoothness)
-        this.monoliths.rotation.y = Math.sin(this.time * 0.5) * 0.05;
-
-        this.renderer.render(this.scene, this.camera);
-    }
-
-    handleResize() {
-        window.addEventListener('resize', () => {
-            this.camera.aspect = window.innerWidth / window.innerHeight;
-            this.camera.updateProjectionMatrix();
-            this.renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-    }
-
-    updateCamera(scrollProgress) {
-        // Cinematic Camera Move based on Scroll
-        // Uses linear interpolation for smooth tracking
-        const yPos = 5 + scrollProgress * 10;
-        const zPos = 20 - scrollProgress * 10;
+        // Rotate based on mouse + auto rotation
+        particles.rotation.y += 0.002 + mouseX * 0.1;
+        particles.rotation.x += mouseY * 0.1;
         
-        gsap.to(this.camera.position, {
-            y: yPos,
-            z: zPos,
-            duration: 1,
-            ease: "power2.out"
-        });
+        network.rotation.y += 0.002 + mouseX * 0.1;
+        network.rotation.x += mouseY * 0.1;
         
-        this.camera.lookAt(0, 0, 0);
+        // Pulse effect
+        const time = Date.now() * 0.001;
+        network.scale.setScalar(1 + Math.sin(time) * 0.02);
+
+        renderer.render(scene, camera);
     }
+    animate();
+
+    // Resize Handler
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
 }
 
-// --- INITIALIZATION ---
-const engine = new InitiateEngine();
+// --- 2. TERMINAL TAB LOGIC ---
+const tabStrategy = document.getElementById('tab-strategy');
+const tabTechnical = document.getElementById('tab-technical');
+const contentStrategy = document.getElementById('content-strategy');
+const contentTechnical = document.getElementById('content-technical');
 
-// --- SCROLL PHYSICS (LENIS) ---
-const lenis = new Lenis({
-    duration: 1.5,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smooth: true
-});
-
-function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-}
-requestAnimationFrame(raf);
-
-// --- SCROLL TRIGGERS ---
-gsap.registerPlugin(ScrollTrigger);
-
-// Link Scroll to 3D Engine
-lenis.on('scroll', (e) => {
-    const progress = e.scroll / (document.body.scrollHeight - window.innerHeight);
-    engine.updateCamera(progress);
-});
-
-// Text Reveals
-const chapters = document.querySelectorAll('.chapter');
-chapters.forEach(chapter => {
-    gsap.to(chapter, {
-        opacity: 1,
-        y: 0,
-        duration: 1.5,
-        ease: "power4.out",
-        scrollTrigger: {
-            trigger: chapter,
-            start: "top 70%",
-            end: "bottom 30%",
-            toggleActions: "play reverse play reverse"
+if (tabStrategy && tabTechnical) {
+    tabStrategy.addEventListener('click', () => {
+        tabStrategy.classList.add('active');
+        tabTechnical.classList.remove('active');
+        
+        contentStrategy.style.display = 'block';
+        contentTechnical.style.display = 'none';
+        
+        // GSAP Fade In
+        if(window.gsap) {
+            gsap.fromTo(contentStrategy, {opacity:0, y:10}, {opacity:1, y:0, duration:0.3});
         }
     });
-});
 
-// --- UI LOGIC ---
-const modal = document.getElementById('modal');
-const trigger = document.getElementById('deployTrigger');
-const close = document.getElementById('closeModal');
-
-trigger.onclick = () => {
-    modal.style.display = 'flex';
-    gsap.fromTo(".modal-frame", {y: 50, opacity: 0}, {y: 0, opacity: 1, duration: 0.4, ease: "back.out(1.7)"});
-};
-
-close.onclick = () => {
-    gsap.to(".modal-frame", {y: 50, opacity: 0, duration: 0.3, onComplete: () => modal.style.display = 'none'});
-};
+    tabTechnical.addEventListener('click', () => {
+        tabTechnical.classList.add('active');
+        tabStrategy.classList.remove('active');
+        
+        contentTechnical.style.display = 'block';
+        contentStrategy.style.display = 'none';
+        
+        if(window.gsap) {
+            gsap.fromTo(contentTechnical, {opacity:0, y:10}, {opacity:1, y:0, duration:0.3});
+        }
+    });
+}
