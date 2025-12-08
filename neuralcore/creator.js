@@ -1,62 +1,122 @@
-// /// CREATOR LOGIC ///ppimk9 primary 
+// /// CREATOR: LIQUID VORTEX ENGINE ///
 
-// 1. SMOOTH SCROLL
-const lenis = new Lenis();
-function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-requestAnimationFrame(raf);
+const container = document.getElementById('gl');
+const content = document.querySelector('.gallery');
+const images = [...document.querySelectorAll('img')];
 
-// 2. CURSOR PHYSICS
-const ball = document.querySelector('.cursor-ball');
-const text = document.querySelector('.cursor-text');
+// --- 1. SETUP ---
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 100, 2000);
+const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 
-let mouseX = 0, mouseY = 0;
-let ballX = 0, ballY = 0;
+camera.position.z = 600;
+camera.fov = 2 * Math.atan((window.innerHeight / 2) / 600) * (180 / Math.PI);
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+container.appendChild(renderer.domElement);
 
-document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-});
+// --- 2. THE SHADER (LIQUID PHYSICS) ---
+const vertexShader = `
+uniform float uTime;
+uniform float uSpeed;
+varying vec2 vUv;
 
-function animateCursor() {
-    ballX += (mouseX - ballX) * 0.1;
-    ballY += (mouseY - ballY) * 0.1;
+void main() {
+    vUv = uv;
+    vec3 pos = position;
     
-    ball.style.transform = `translate(${ballX - 10}px, ${ballY - 10}px)`;
-    text.style.left = mouseX + 'px';
-    text.style.top = mouseY + 'px';
-    
-    requestAnimationFrame(animateCursor);
+    // LIQUID CURVE ALGORITHM
+    // Bends the image based on scroll velocity
+    float curve = 0.002 * uSpeed;
+    pos.y = pos.y + (sin(uv.x * 3.14159) * uSpeed * 2.0);
+    pos.z = pos.z + (sin(uv.x * 3.14159) * abs(uSpeed) * 0.5);
+
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
 }
-animateCursor();
+`;
 
-// 3. HOVER INTERACTIONS
-const hoverables = document.querySelectorAll('[data-cursor]');
+const fragmentShader = `
+uniform sampler2D uTexture;
+uniform float uSpeed;
+varying vec2 vUv;
 
-hoverables.forEach(el => {
-    el.addEventListener('mouseenter', () => {
-        const label = el.getAttribute('data-cursor');
-        text.innerText = label;
-        gsap.to(ball, {scale: 4, duration: 0.3});
-        gsap.to(text, {opacity: 1, duration: 0.3});
+void main() {
+    // CHROMATIC ABERRATION (RGB SPLIT)
+    // Shifts color channels based on speed
+    float shift = uSpeed * 0.005;
+    
+    float r = texture2D(uTexture, vUv + vec2(shift, 0.0)).r;
+    float g = texture2D(uTexture, vUv).g;
+    float b = texture2D(uTexture, vUv - vec2(shift, 0.0)).b;
+    
+    gl_FragColor = vec4(r, g, b, 1.0);
+}
+`;
+
+// --- 3. CREATE MESHES ---
+const meshes = [];
+
+// Wait for images to load
+imagesLoaded(document.querySelectorAll('img'), () => {
+    images.forEach((img, i) => {
+        const bounds = img.getBoundingClientRect();
+        const geometry = new THREE.PlaneGeometry(bounds.width, bounds.height, 16, 16);
+        const texture = new THREE.TextureLoader().load(img.src);
+        texture.needsUpdate = true;
+
+        const material = new THREE.ShaderMaterial({
+            uniforms: {
+                uTime: { value: 0 },
+                uSpeed: { value: 0 },
+                uTexture: { value: texture }
+            },
+            vertexShader,
+            fragmentShader,
+            // wireframe: true // Uncomment to see the mesh structure
+        });
+
+        const mesh = new THREE.Mesh(geometry, material);
+        scene.add(mesh);
+        meshes.push({ mesh, img, bounds });
     });
     
-    el.addEventListener('mouseleave', () => {
-        gsap.to(ball, {scale: 1, duration: 0.3});
-        gsap.to(text, {opacity: 0, duration: 0.3});
-    });
+    // Show titles after load
+    document.querySelectorAll('.title').forEach(t => t.style.opacity = 1);
 });
 
-// 4. PARALLAX IMAGES
-gsap.registerPlugin(ScrollTrigger);
-document.querySelectorAll('.img-mask img').forEach(img => {
-    gsap.to(img, {
-        yPercent: 20,
-        ease: "none",
-        scrollTrigger: {
-            trigger: img.parentElement,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true
-        }
+// --- 4. SCROLL SYNC LOOP ---
+const lenis = new Lenis();
+let currentScroll = 0;
+let targetScroll = 0;
+
+function animate() {
+    // Smooth Scroll Sync
+    targetScroll = window.scrollY;
+    currentScroll += (targetScroll - currentScroll) * 0.1;
+    
+    const velocity = targetScroll - currentScroll;
+
+    meshes.forEach(({ mesh, img }) => {
+        const bounds = img.getBoundingClientRect();
+        
+        // Sync WebGL position to DOM position
+        mesh.position.y = (window.innerHeight / 2) - bounds.top - (bounds.height / 2);
+        mesh.position.x = (bounds.left - window.innerWidth / 2) + (bounds.width / 2);
+        
+        // Pass velocity to shader
+        mesh.material.uniforms.uSpeed.value = velocity;
     });
+
+    renderer.render(scene, camera);
+    lenis.raf(Date.now());
+    requestAnimationFrame(animate);
+}
+animate();
+
+// --- 5. RESIZE HANDLER ---
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.fov = 2 * Math.atan((window.innerHeight / 2) / 600) * (180 / Math.PI);
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
 });
