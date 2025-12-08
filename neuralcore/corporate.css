@@ -1,0 +1,39 @@
+/* /// CORPORATE PHYSICS /// */
+body { background: #f4f4f4; color: #111; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin: 0; }
+
+.grid-layout { display: grid; grid-template-columns: 300px 1fr; min-height: 100vh; }
+
+/* SIDEBAR */
+.sidebar { position: sticky; top: 0; height: 100vh; padding: 60px 40px; border-right: 1px solid #ddd; display: flex; flex-direction: column; justify-content: space-between; background: #fff; }
+.logo { font-weight: 900; font-size: 1.5rem; letter-spacing: -1px; }
+.side-nav a { display: block; color: #111; text-decoration: none; margin-bottom: 15px; font-weight: 500; transition: 0.3s; }
+.side-nav a:hover { color: #000; padding-left: 10px; }
+.back-btn { color: #666; text-decoration: none; font-size: 0.8rem; font-family: 'Space Mono', monospace; }
+
+/* CONTENT */
+.content-area { padding: 100px 80px; }
+.block { margin-bottom: 150px; }
+
+.headline { font-size: 5rem; letter-spacing: -2px; line-height: 0.9; margin: 0 0 40px 0; color: #000; }
+.lead { font-size: 1.5rem; line-height: 1.5; color: #444; max-width: 800px; }
+
+/* STATS */
+.stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; border-top: 1px solid #000; padding-top: 40px; }
+.stat-item { display: flex; flex-direction: column; }
+.num { font-size: 4rem; font-weight: 900; color: #000; }
+.label { font-family: 'Space Mono', monospace; color: #666; font-size: 0.9rem; margin-top: 10px; }
+
+/* ACCORDION */
+.acc-item { border-bottom: 1px solid #ddd; padding: 30px 0; cursor: pointer; }
+.acc-item h3 { margin: 0; font-size: 1.5rem; }
+.acc-content { height: 0; overflow: hidden; transition: 0.5s; color: #666; font-size: 1.1rem; }
+.acc-item.active .acc-content { height: auto; padding-top: 20px; }
+
+/* BUTTON */
+.corp-btn { background: #000; color: #fff; padding: 20px 40px; text-decoration: none; font-weight: bold; display: inline-block; transition: 0.3s; }
+.corp-btn:hover { background: #333; }
+
+@media (max-width: 1024px) {
+    .grid-layout { grid-template-columns: 1fr; }
+    .sidebar { height: auto; position: relative; border-right: none; border-bottom: 1px solid #ddd; }
+}
