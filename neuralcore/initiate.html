@@ -3,68 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INITIATE | Visualizer</title>
+    <title>INITIATE | The Prism</title>
     
     <!-- GOOGLE TAG -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-P1PCVNCCE4"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-P1PCVNCCE4');</script>
     
+    <!-- ASSETS -->
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="initiate.css">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- ENGINES -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
-    <!-- CONTROL BAR (THE SWITCHER) -->
-    <nav class="control-bar">
-        <a href="index.html" class="back-btn">← BACK</a>
-        <div class="template-switcher">
-            <button class="switch-btn active" data-mode="creator">CREATOR</button>
-            <button class="switch-btn" data-mode="corporate">CORPORATE</button>
-            <button class="switch-btn" data-mode="retail">RETAIL</button>
+    <!-- 1. THE WEBGL CANVAS (Background) -->
+    <div id="gl-container"></div>
+
+    <!-- 2. NOISE GRAIN OVERLAY -->
+    <div class="noise-overlay"></div>
+
+    <!-- 3. UI LAYER -->
+    <nav class="top-bar">
+        <a href="index.html" class="back-link">← SECTOR ZERO</a>
+        <div class="mode-switcher">
+            <button class="mode-btn active" data-mode="creator">CREATOR</button>
+            <button class="mode-btn" data-mode="corporate">CORPORATE</button>
+            <button class="mode-btn" data-mode="retail">RETAIL</button>
         </div>
-        <button id="deployBtn" class="deploy-action">DEPLOY THIS ($1,500)</button>
+        <button id="deployTrigger" class="action-btn">DEPLOY ($1,500)</button>
     </nav>
 
-    <!-- LIVE PREVIEW CONTAINER -->
-    <main id="preview-container" class="mode-creator">
-        
-        <!-- DYNAMIC CONTENT INJECTED HERE -->
-        <div class="preview-content">
-            <div class="hero-split">
-                <div class="text-side">
-                    <h1 id="demo-title">THE<br>VISIONARY.</h1>
-                    <p id="demo-sub">High-fidelity portfolio architecture for photographers, designers, and artists.</p>
-                    <div class="fake-btn">VIEW WORK</div>
-                </div>
-                <div class="image-side" id="demo-visual">
-                    <!-- CSS handles the visual -->
-                </div>
+    <!-- 4. CONTENT LAYER -->
+    <main class="content-stage">
+        <div class="text-wrapper">
+            <div class="label-track">
+                <span id="label-text">THE VISIONARY</span>
             </div>
-            
-            <div class="grid-preview">
-                <div class="grid-item"></div>
-                <div class="grid-item"></div>
-                <div class="grid-item"></div>
+            <h1 id="main-title">DEFINING<br>AESTHETICS.</h1>
+            <p id="sub-text">High-fidelity portfolio architecture for those who speak in visuals. Dark mode native. Zero latency.</p>
+            <div class="specs-row">
+                <span>// STATIC_BUILD</span>
+                <span>// SEO_MAXIMIZED</span>
+                <span>// 100_PERFORMANCE</span>
             </div>
         </div>
-
     </main>
 
-    <!-- FORM MODAL -->
-    <div class="modal" id="modal">
-        <div class="glass-panel form-box">
+    <!-- 5. MODAL -->
+    <div class="modal-backdrop" id="modal">
+        <div class="modal-frame">
             <div class="modal-header">
-                <h3>SECURE INITIATE</h3>
-                <div class="close-btn" id="closeBtn">×</div>
+                <h3>SECURE ASSET</h3>
+                <div class="close-icon" id="closeModal">×</div>
             </div>
             <form action="https://formspree.io/f/mblndgrz" method="POST">
                 <input type="hidden" name="product" value="INITIATE">
-                <input type="hidden" name="selected_template" id="selected-template" value="CREATOR">
-                <input type="text" name="name" placeholder="NAME" required>
-                <input type="email" name="email" placeholder="EMAIL" required>
-                <button class="deploy-btn full-width">CONFIRM TRANSACTION</button>
+                <input type="hidden" name="style" id="form-style" value="CREATOR">
+                <div class="input-group">
+                    <label>IDENTITY</label>
+                    <input type="text" name="name" required>
+                </div>
+                <div class="input-group">
+                    <label>UPLINK</label>
+                    <input type="email" name="email" required>
+                </div>
+                <button class="action-btn full">EXECUTE</button>
             </form>
         </div>
     </div>
