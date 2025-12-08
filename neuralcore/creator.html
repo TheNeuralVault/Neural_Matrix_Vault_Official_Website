@@ -2,47 +2,96 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CREATOR | Visual Synthesis</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CREATOR | The Vortex</title>
+    
+    <!-- GOOGLE TAG -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-P1PCVNCCE4"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-P1PCVNCCE4');</script>
     
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="creator.css">
     
+    <!-- ENGINES -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
 </head>
 <body>
-    <div id="gl-viewport"></div>
+    
+    <!-- WEBGL CONTAINER -->
+    <div id="gl"></div>
 
-    <nav class="complex-nav">
-        <div class="nav-id">CREATOR_PROTOCOL_V9</div>
-        <a href="index.html" class="nav-exit">ABORT_SEQUENCE</a>
+    <!-- UI OVERLAY -->
+    <nav class="creator-nav">
+        <div class="brand">VISIONARY_OS</div>
+        <a href="index.html" class="exit">EXIT_SIMULATION</a>
     </nav>
 
-    <main class="scroll-stage">
-        <section class="frame">
-            <h1 class="kinetic-type">VISUAL<br>SYNTHESIS</h1>
-            <div class="meta-data">
-                <span>SHADER: ACTIVE</span>
-                <span>VELOCITY: VARIABLE</span>
-            </div>
-        </section>
-        
-        <section class="frame">
-            <h1 class="kinetic-type">LIQUID<br>REALITY</h1>
-            <div class="meta-data">
-                <span>DISTORTION: 0.85</span>
-                <span>CHROMATIC: ENABLED</span>
-            </div>
-        </section>
-
-        <section class="frame">
-            <h1 class="kinetic-type">DEPLOY<br>NOW</h1>
-            <a href="https://buy.stripe.com/7sY7sL8dib6SbuvbPt8g001" class="complex-btn">ACQUIRE TEMPLATE ($2,500)</a>
-        </section>
+    <!-- CONTENT (Hidden, used by JS to build 3D scene) -->
+    <main class="gallery">
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000" alt="">
+            <h2 class="title">NEON<br>DREAMS</h2>
+            <span class="num">01</span>
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000" alt="">
+            <h2 class="title">VOID<br>WALKER</h2>
+            <span class="num">02</span>
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?q=80&w=1000" alt="">
+            <h2 class="title">CHROME<br>HEART</h2>
+            <span class="num">03</span>
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1535905557558-afc4877a26fc?q=80&w=1000" alt="">
+            <h2 class="title">SYNTH<br>WAVE</h2>
+            <span class="num">04</span>
+        </div>
+        <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=1000" alt="">
+            <h2 class="title">DATA<br>MOSH</h2>
+            <span class="num">05</span>
+        </div>
     </main>
 
+    <!-- PURCHASE UI -->
+    <div class="purchase-ui">
+        <div class="meta">
+            <span>CLASS: CREATOR</span>
+            <span>$2,500.00</span>
+        </div>
+        <button onclick="openModal()" class="buy-btn">ACQUIRE TEMPLATE</button>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal-backdrop" id="modal">
+        <div class="modal-frame">
+            <div class="modal-header">
+                <h3>SECURE ASSET</h3>
+                <div class="close-icon" onclick="closeModal()">×</div>
+            </div>
+            <form action="https://formspree.io/f/mblndgrz" method="POST">
+                <input type="hidden" name="product" value="CREATOR_TEMPLATE">
+                <div class="input-group">
+                    <label>IDENTITY</label>
+                    <input type="text" name="name" required>
+                </div>
+                <div class="input-group">
+                    <label>UPLINK</label>
+                    <input type="email" name="email" required>
+                </div>
+                <button class="action-btn full">EXECUTE</button>
+            </form>
+        </div>
+    </div>
+
     <script src="creator.js"></script>
+    <script>
+        function openModal() { document.getElementById('modal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('modal').style.display = 'none'; }
+    </script>
 </body>
 </html>
