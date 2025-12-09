@@ -18,7 +18,7 @@
 </head>
 <body>
 
-    <!-- 1. FALLBACK BACKGROUND (Visible if WebGL fails) -->
+    <!-- 1. FALLBACK BACKGROUND (The Grid) -->
     <div class="static-bg"></div>
 
     <!-- 2. WEBGL ENGINE -->
@@ -27,7 +27,7 @@
     <!-- 3. NAVIGATION -->
     <nav class="nexus-nav">
         <div class="brand-sig">MAGNUS_OPUS</div>
-        <a href="index.html" class="nav-link exit">EXIT</a>
+        <a href="index.html" class="exit">[ EXIT ]</a>
     </nav>
 
     <!-- 4. SCROLL CONTENT -->
@@ -39,6 +39,9 @@
                 <div class="label">ARCHITECT_OF_THE_IMPOSSIBLE</div>
                 <h1 class="glitch-text">I DO NOT<br>CREATE.</h1>
                 <h1 class="glitch-text outline">I SUMMON.</h1>
+                <div style="margin-top:30px; font-family:'Space Mono'; font-size:0.7rem; color:#555;">
+                    SYSTEM_STATUS: <span style="color:#00f3ff">ONLINE</span> // LATENCY: 0ms
+                </div>
             </div>
         </section>
 
@@ -55,15 +58,14 @@
             </div>
         </section>
 
-        <!-- GALLERY (The Evidence) -->
+        <!-- GALLERY -->
         <section class="section gallery">
             <div class="artifact-card">
                 <div class="artifact-meta">
                     <h2>NEURAL_ARCH</h2>
-                    <p>AI/Human Symbiosis</p>
+                    <p>01 / AI SYMBIOSIS</p>
                 </div>
                 <div class="artifact-visual">
-                    <!-- Image for WebGL to grab -->
                     <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000" class="gl-image" crossorigin="anonymous">
                 </div>
             </div>
@@ -71,7 +73,7 @@
             <div class="artifact-card">
                 <div class="artifact-meta">
                     <h2>VOID_WALKER</h2>
-                    <p>Cinematic Reality</p>
+                    <p>02 / CINEMATIC REALITY</p>
                 </div>
                 <div class="artifact-visual">
                     <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1000" class="gl-image" crossorigin="anonymous">
@@ -88,6 +90,28 @@
         </section>
 
     </main>
+
+    <!-- MODAL -->
+    <div class="modal-backdrop" id="modal">
+        <div class="modal-frame">
+            <div class="modal-header">
+                <h3>SECURE_ASSET</h3>
+                <div class="close-icon" id="closeModal">×</div>
+            </div>
+            <form action="https://formspree.io/f/mblndgrz" method="POST">
+                <input type="hidden" name="product" value="CREATOR_NEXUS">
+                <div class="input-group">
+                    <label>IDENTITY</label>
+                    <input type="text" name="name" required>
+                </div>
+                <div class="input-group">
+                    <label>UPLINK</label>
+                    <input type="email" name="email" required>
+                </div>
+                <button class="nexus-btn full">EXECUTE</button>
+            </form>
+        </div>
+    </div>
 
     <script src="creator.js"></script>
 </body>
