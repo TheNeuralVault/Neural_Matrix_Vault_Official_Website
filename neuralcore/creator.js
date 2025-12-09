@@ -3,13 +3,18 @@
 class NexusEngine {
     constructor() {
         this.container = document.getElementById('gl-viewport');
+        if (!this.container) return;
+
         this.scene = new THREE.Scene();
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         this.camera.position.z = 600;
+        
+        // Calculate FOV to match DOM pixels
         this.camera.fov = 2 * Math.atan((window.innerHeight / 2) / 600) * (180 / Math.PI);
 
         this.renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
         this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         this.container.appendChild(this.renderer.domElement);
 
         this.images = [...document.querySelectorAll('.gl-image')];
@@ -23,12 +28,13 @@ class NexusEngine {
     }
 
     setupScene() {
-        // Create a plane for each image in the DOM
-        this.images.forEach((img, i) => {
-            const texture = new THREE.TextureLoader().load(img.src);
-            const geometry = new THREE.PlaneGeometry(1, 1, 20, 20); // Segments for warping
+        const loader = new THREE.TextureLoader();
+
+        this.images.forEach((img) => {
+            // Load texture with CORS safety
+            const texture = loader.load(img.src);
+            const geometry = new THREE.PlaneGeometry(1, 1, 20, 20); 
             
-            // CUSTOM SHADER: LIQUID SCROLL
             const material = new THREE.ShaderMaterial({
                 uniforms: {
                     uTexture: { value: texture },
@@ -41,8 +47,8 @@ class NexusEngine {
                     void main() {
                         vUv = uv;
                         vec3 newPosition = position;
-                        // WARP ALGORITHM: Bend based on scroll velocity
-                        newPosition.y += sin(uv.x * 3.14) * uOffset.y * 0.5;
+                        // WARP: Bend Y based on X sine wave
+                        newPosition.y += sin(uv.x * 3.14) * uOffset.y * 1.0;
                         gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
                     }
                 `,
@@ -52,7 +58,8 @@ class NexusEngine {
                     void main() {
                         gl_FragColor = texture2D(uTexture, vUv);
                     }
-                `
+                `,
+                transparent: true
             });
 
             const mesh = new THREE.Mesh(geometry, material);
@@ -62,14 +69,13 @@ class NexusEngine {
     }
 
     syncPositions() {
-        // Sync WebGL meshes to DOM image positions
         this.meshItems.forEach(({ mesh, img }) => {
             const bounds = img.getBoundingClientRect();
             
-            // Scale mesh to match image
+            // 1. Update Scale
             mesh.scale.set(bounds.width, bounds.height, 1);
             
-            // Position mesh (Convert DOM coords to WebGL coords)
+            // 2. Update Position (Center of screen is 0,0)
             mesh.position.x = bounds.left - window.innerWidth / 2 + bounds.width / 2;
             mesh.position.y = -bounds.top + window.innerHeight / 2 - bounds.height / 2;
         });
@@ -78,12 +84,11 @@ class NexusEngine {
     initScroll() {
         this.lenis = new Lenis({
             duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             smooth: true
         });
 
         this.lenis.on('scroll', (e) => {
-            // Pass scroll velocity to shader
+            // Send velocity to shader
             this.meshItems.forEach(({ mesh }) => {
                 mesh.material.uniforms.uOffset.value.y = e.velocity * 0.05;
             });
@@ -99,45 +104,13 @@ class NexusEngine {
 
     resize() {
         this.camera.aspect = window.innerWidth / window.innerHeight;
+        this.camera.fov = 2 * Math.atan((window.innerHeight / 2) / 600) * (180 / Math.PI);
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(window.innerWidth, window.innerHeight);
     }
 }
 
-// --- INITIALIZATION ---
+// --- BOOT ---
 window.onload = () => {
     new NexusEngine();
-    
-    // GSAP TEXT REVEALS
-    gsap.registerPlugin(ScrollTrigger);
-    
-    const cards = document.querySelectorAll('.artifact-card');
-    cards.forEach(card => {
-        gsap.fromTo(card, 
-            { opacity: 0, y: 100 },
-            { 
-                opacity: 1, y: 0, duration: 1, ease: "power3.out",
-                scrollTrigger: { trigger: card, start: "top 80%" }
-            }
-        );
-    });
-};
-
-// --- UI LOGIC ---
-const modal = document.getElementById('modal');
-const closeBtn = document.getElementById('closeModal');
-// Attach to any button with 'nexus-btn' class that isn't a link
-document.querySelectorAll('.nexus-btn').forEach(btn => {
-    if(btn.getAttribute('href').startsWith('#')) return; // Ignore anchor links
-    btn.addEventListener('click', (e) => {
-        if(btn.tagName === 'BUTTON') { // Only open modal for buttons, not the stripe link
-             e.preventDefault();
-             modal.style.display = 'flex';
-             gsap.fromTo(".modal-frame", {y: 50, opacity: 0}, {y: 0, opacity: 1, duration: 0.4});
-        }
-    });
-});
-
-closeBtn.onclick = () => {
-    gsap.to(".modal-frame", {y: 50, opacity: 0, duration: 0.3, onComplete: () => modal.style.display = 'none'});
 };
