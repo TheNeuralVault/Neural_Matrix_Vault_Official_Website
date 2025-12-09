@@ -1,6 +1,6 @@
-/* /// CREATOR: THE NEXUS ENGINE /// */
+/* /// CREATOR: THE NEXUS ENGINE v2.0 /// */
 :root {
-    --void: #030303;
+    --void: #050505;
     --light: #e0e0e0;
     --accent: #00f3ff;
     --font-display: 'Outfit', sans-serif;
@@ -15,89 +15,128 @@ body {
     overflow-x: hidden; 
 }
 
-/* 1. BACKGROUND LAYERS */
+/* 1. ATMOSPHERE LAYERS */
 .static-bg {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle at center, #111 0%, #000 100%);
+    /* Subtle Grid Pattern */
+    background-image: 
+        linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: center;
     z-index: -5;
+}
+
+/* Vignette to focus center */
+.static-bg::after {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at center, transparent 0%, #000 90%);
 }
 
 #gl-viewport { 
     position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-    z-index: -1; pointer-events: none;
+    z-index: -1; pointer-events: none; opacity: 0.5; mix-blend-mode: screen;
 }
 
-/* 2. NAV */
+/* 2. HUD ORNAMENTATION (The Frame) */
+body::before, body::after {
+    content: ''; position: fixed; width: 20px; height: 20px;
+    border: 2px solid var(--accent); z-index: 100; pointer-events: none;
+    opacity: 0.5;
+}
+body::before { top: 20px; left: 20px; border-right: none; border-bottom: none; }
+body::after { bottom: 20px; right: 20px; border-left: none; border-top: none; }
+
+/* 3. NAV */
 .nexus-nav { 
     position: fixed; top: 0; width: 100%; padding: 30px; 
     display: flex; justify-content: space-between; align-items: center; 
     z-index: 100; mix-blend-mode: difference; 
 }
 .brand-sig { font-weight: 900; letter-spacing: -1px; font-size: 1rem; }
-.exit { color: var(--accent); text-decoration: none; font-family: var(--font-mono); font-size: 0.8rem; }
+.exit { 
+    color: var(--accent); text-decoration: none; font-family: var(--font-mono); 
+    font-size: 0.7rem; border: 1px solid var(--accent); padding: 5px 10px;
+    transition: 0.3s;
+}
+.exit:hover { background: var(--accent); color: #000; }
 
-/* 3. SECTIONS */
+/* 4. SECTIONS */
 .scroll-container { position: relative; z-index: 10; }
 .section { min-height: 90vh; position: relative; padding: 0 20px; display: flex; flex-direction: column; justify-content: center; }
 
-/* 4. HERO */
+/* 5. HERO (Enhanced) */
 .hero { text-align: center; padding-top: 100px; }
-.label { font-family: var(--font-mono); color: var(--accent); margin-bottom: 20px; font-size: 0.7rem; letter-spacing: 2px; }
+.label { 
+    font-family: var(--font-mono); color: var(--accent); margin-bottom: 20px; 
+    font-size: 0.7rem; letter-spacing: 3px; text-shadow: 0 0 10px rgba(0,243,255,0.5);
+}
 .glitch-text { 
     font-size: 15vw; line-height: 0.85; margin: 0; font-weight: 900; 
-    letter-spacing: -0.04em; text-transform: uppercase; 
+    letter-spacing: -0.04em; text-transform: uppercase; color: #fff;
+    text-shadow: 0 0 20px rgba(255,255,255,0.1);
 }
 .outline { 
-    color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.5); 
+    color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.3); 
+    opacity: 0.5;
 }
 
-/* 5. GALLERY (CRITICAL FIX) */
+/* 6. MANIFESTO */
+.manifesto { align-items: center; text-align: center; }
+.large-statement { 
+    font-size: 1.5rem; line-height: 1.5; max-width: 800px; margin: 0 auto;
+    font-weight: 300; color: #ccc; 
+    border-left: 2px solid var(--accent); padding-left: 20px; /* Data Line */
+}
+.signature { 
+    margin-top: 40px; display: flex; justify-content: center; gap: 20px;
+    font-family: var(--font-mono); color: var(--accent); font-size: 0.7rem; 
+}
+
+/* 7. GALLERY */
 .gallery { gap: 100px; padding: 100px 20px; }
 .artifact-card { width: 100%; max-width: 600px; margin: 0 auto; }
-.artifact-meta { margin-bottom: 20px; border-left: 2px solid var(--accent); padding-left: 15px; }
+.artifact-meta { 
+    margin-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end;
+    border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;
+}
 .artifact-meta h2 { font-size: 2rem; margin: 0; line-height: 1; }
-.artifact-meta p { font-family: var(--font-mono); color: #888; margin-top: 5px; font-size: 0.8rem; }
+.artifact-meta p { font-family: var(--font-mono); color: var(--accent); margin: 0; font-size: 0.7rem; }
 
 .artifact-visual { 
     width: 100%; height: 50vh; position: relative; overflow: hidden; 
-    background: #111; border-radius: 4px;
+    background: #111; border: 1px solid #333;
 }
 
-/* MOBILE IMAGE STYLING (CSS ONLY) */
 .gl-image { 
     width: 100%; height: 100%; object-fit: cover; 
-    opacity: 1 !important; /* FORCE VISIBILITY */
+    opacity: 1 !important; 
     transition: transform 0.5s ease, filter 0.5s ease;
     filter: grayscale(100%) contrast(1.2);
 }
+.artifact-card:active .gl-image { filter: grayscale(0%) contrast(1); transform: scale(1.05); }
 
-/* Mobile Hover Effect */
-.artifact-card:active .gl-image {
-    filter: grayscale(0%) contrast(1);
-    transform: scale(1.05);
-}
-
-/* DESKTOP OVERRIDE (Only hide images if WebGL is active on Desktop) */
+/* Desktop Override */
 @media (min-width: 1024px) {
     body.webgl-active .gl-image { opacity: 0 !important; }
-    .gl-image { filter: none; } /* Reset filter for desktop */
+    .gl-image { filter: none; }
 }
 
-/* 6. UPLINK */
+/* 8. UPLINK */
 .uplink { align-items: center; text-align: center; }
 .uplink h2 { font-size: 12vw; margin-bottom: 40px; line-height: 0.9; }
 
 .nexus-btn { 
-    background: #fff; color: #000; padding: 20px 40px; font-size: 1rem; 
+    background: transparent; color: #fff; padding: 20px 40px; font-size: 1rem; 
     font-weight: 900; text-decoration: none; display: inline-block; 
-    clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+    border: 1px solid #fff;
     transition: 0.3s;
 }
-.nexus-btn:hover { background: var(--accent); box-shadow: 0 0 30px var(--accent); }
+.nexus-btn:hover { background: var(--accent); color: #000; border-color: var(--accent); box-shadow: 0 0 50px var(--accent); }
 
-/* 7. MODAL */
+/* 9. MODAL */
 .modal-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 200; display: none; justify-content: center; align-items: center; }
-.modal-frame { width: 90%; max-width: 500px; background: #000; border: 1px solid var(--accent); padding: 30px; }
+.modal-frame { width: 90%; max-width: 500px; background: #000; border: 1px solid var(--accent); padding: 30px; box-shadow: 0 0 50px rgba(0,243,255,0.1); }
 .modal-header { display: flex; justify-content: space-between; margin-bottom: 30px; color: var(--accent); font-family: var(--font-mono); }
 .close-icon { cursor: pointer; font-size: 1.5rem; }
 .input-group { margin-bottom: 20px; }
@@ -110,4 +149,4 @@ body {
     .glitch-text { font-size: 8vw; }
     .large-statement { font-size: 2.5rem; }
     .uplink h2 { font-size: 6vw; }
-    }
+        }
