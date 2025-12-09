@@ -15,7 +15,7 @@ body {
     overflow-x: hidden; 
 }
 
-/* FALLBACK BACKGROUND (Fixes Black Screen) */
+/* FALLBACK BACKGROUND */
 .static-bg {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: radial-gradient(circle at center, #111 0%, #000 100%);
@@ -24,8 +24,7 @@ body {
 
 #gl-viewport { 
     position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-    z-index: -1; /* Behind content */
-    opacity: 0.6; /* Blend with background */
+    z-index: -1; pointer-events: none; opacity: 1;
 }
 
 /* NAV */
@@ -73,7 +72,15 @@ body {
 .artifact-visual { 
     width: 100%; height: 50vh; position: relative; overflow: hidden; background: #111;
 }
-.gl-image { width: 100%; height: 100%; object-fit: cover; opacity: 0; } /* Hidden, WebGL renders it */
+
+/* CRITICAL FIX: Images visible by default */
+.gl-image { 
+    width: 100%; height: 100%; object-fit: cover; 
+    opacity: 1; transition: opacity 0.5s; 
+} 
+
+/* JS adds this class only if WebGL works */
+body.webgl-active .gl-image { opacity: 0; }
 
 /* UPLINK */
 .uplink { align-items: center; text-align: center; }
